@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTUMN</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root { --bg-main: #fcf9f2; --text-main: #2c2a27; --text-muted: #6b665f; --border: #e6decb; --c-cover-bg: #1c1b19; --c-cover-text: #e8dcc8; }
+[data-theme="dark"] { --bg-main: #121212; --text-main: #e0dcd5; --text-muted: #9a958f; --border: #33312e; --c-cover-bg: #050505; --c-cover-text: #d4c9b8; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background-color: var(--bg-main); color: var(--text-main); font-family: 'Lora', Georgia, serif; line-height: 1.7; transition: background-color 0.4s, color 0.4s; overflow-x: hidden;}
+h1,h2,h3,h4{ font-weight: 600; line-height: 1.2; }
+button{ cursor: pointer; font-family: 'Montserrat', sans-serif; }
+input,select,textarea{ font-family: 'Lora', serif; }
+
+.theme-selector-overlay { position: fixed; inset: 0; z-index: 1000; background: #1c1b19; color: #e8dcc8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+.theme-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(40px, 8vw, 80px); margin-bottom: 20px; color: #c8a96a; }
+.theme-question { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 40px; opacity: 0.8; }
+.theme-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.theme-btn { background: transparent; border: 1px solid #e8dcc8; color: #e8dcc8; padding: 15px 40px; border-radius: 50px; font-size: 16px; transition: all 0.3s ease; }
+.theme-btn:hover { background: #e8dcc8; color: #1c1b19; }
+
+.top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: var(--bg-main); border-bottom: 1px solid var(--border); transition: background-color 0.4s; }
+.brand { font-family: 'Cinzel Decorative', serif; font-size: 24px; color: var(--text-main); cursor: pointer; user-select: none; }
+.nav-links { display: flex; gap: 15px; align-items: center; }
+.nav-btn { background: none; border: 1px solid var(--border); border-radius: 50px; padding: 8px 16px; color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
+.theme-toggle { background: var(--border); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; color: var(--text-main); }
+
+.author-bar { position: fixed; top: 70px; right: 20px; z-index: 200; display: none; flex-direction: column; gap: 10px; background: var(--border); padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-family: 'Montserrat', sans-serif; }
+.author-bar.active { display: flex; }
+.author-bar button { padding: 8px 12px; border: none; border-radius: 6px; background: #1d1d1b; color: #fff; font-size: 12px; }
+.btn-danger { background: #b42318 !important; }
+
+.cover-section { min-height: 100vh; background-color: var(--c-cover-bg); color: var(--c-cover-text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+.cover-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(60px, 15vw, 120px); color: #c8a96a; line-height: 1; }
+.cover-subtitle { font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; margin-top: 20px; }
+
+.toc-section { padding: 60px 20px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
+.toc-container { max-width: 800px; margin: 0 auto; }
+.toc-title { font-family: 'Cinzel Decorative', serif; font-size: 32px; margin-bottom: 40px; color: var(--text-main); text-align: center; }
+.toc-list { display: flex; flex-direction: column; gap: 15px; }
+.toc-item { display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--text-main); padding: 15px 20px; border-radius: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--border); transition: 0.3s; }
+.toc-item:hover { transform: translateX(5px); }
+.toc-color-dot { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
+.toc-item-title { font-size: 18px; font-weight: 600; }
+.toc-item-author { font-size: 12px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; color: var(--text-muted); }
+
+.story-section { padding: 80px 20px; border-bottom: 1px solid var(--border); }
+.container { max-width: 800px; margin: 0 auto; }
+.story-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; opacity: 0.8; }
+.story-title { font-size: clamp(32px, 5vw, 48px); margin-bottom: 30px; }
+.story-text { font-size: 19px; line-height: 1.8; }
+.story-text p { margin-bottom: 20px; }
+.story-text > p:first-of-type::first-letter { font-family: 'Cinzel Decorative', serif; float: left; font-size: 4em; line-height: 0.8; margin-right: 12px; margin-top: 5px; }
+
+.recipe-block { background: rgba(0,0,0,0.03); border-left: 4px solid #4a697a; padding: 25px; border-radius: 8px; margin: 30px 0; }
+.recipe-block h3 { font-family: 'Cinzel Decorative', serif; color: #4a697a; margin-bottom: 15px; font-size: 24px; }
+.recipe-block ul, .recipe-block ol { padding-left: 20px; margin-bottom: 20px; }
+
+.bg-myrte { background: #eef5ee; color: #1b3324; }
+.bg-myrte .story-title { color: #2e5e3e; }
+.bg-dinner { background: #fdf2ea; color: #4a2316; }
+.bg-dinner .story-title { color: #b85a3a; }
+.bg-north { background: #eef2f5; color: #1f2d36; }
+.bg-north .story-title { color: #4a697a; }
+.bg-body { background: #f8f3e6; color: #3b2e1a; }
+.bg-body .story-title { color: #a37a40; }
+.bg-spice { background: #141414; color: #d4c9b8; }
+.bg-spice .story-title { color: #d94e34; }
+
+.gallery-section { display: none; padding: 100px 20px; background: var(--bg-main); min-height: 100vh; }
+.gallery-section.active { display: block; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+.gallery-item { background: #1a1817; border-radius: 12px; overflow: hidden; color: #e8dcc8; }
+.gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
+.gallery-info { padding: 15px; }
+
+.bg-animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.falling-item { position: absolute; top: -50px; pointer-events: none; opacity: 0.6; }
+@keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+.leaf { color: #c8a96a; font-size: 24px; animation: fall linear infinite; }
+.spider { color: #333; font-size: 20px; animation: fall linear infinite; }
+[data-theme="dark"] .spider { color: #aaa; }
+
+.modal { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal.open { display: flex; }
+.modal-card { background: #fffdf9; color: #1d1d1b; width: min(600px, 100%); max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 30px; }
+.field { margin-bottom: 15px; }
+.field label { display: block; font-size: 12px; text-transform: uppercase; color: #666; margin-bottom: 5px; }
+.field input, .field textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+.btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; }
+.btn-dark { background: #1d1d1b; color: #fff; }
+.btn-ghost { background: transparent; border: 1px solid #ccc; }
+
+@media (max-width: 768px) {
+  .nav-btn { padding: 6px 12px; font-size: 11px; }
+  .cover-title { font-size: 15vw; }
+  .story-section { padding: 50px 20px; }
+  .story-title { font-size: 28px; }
+  .story-text { font-size: 17px; }
+  .author-bar { top: auto; bottom: 20px; right: 20px; left: 20px; }
+}
+</style>
+</head>
+<body data-theme="light">
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMs9xM3Fw9BGaHaexA2RZWtUykTZUmo8Y",
+    authDomain: "autumn-6f900.firebaseapp.com",
+    projectId: "autumn-6f900",
+    storageBucket: "autumn-6f900.firebasestorage.app",
+    messagingSenderId: "981004008233",
+    appId: "1:981004008233:web:6e2dc658ed3d0389a45538",
+    measurementId: "G-H7P6262R0R"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  window.saveToCloud = async function(key, data) { try { await setDoc(doc(db, "autumn_data", key), { value: data }); } catch(e) {} };
+  window.loadFromCloud = async function(key) { try { const docSnap = await getDoc(doc(db, "autumn_data", key)); return docSnap.exists() ? docSnap.data().value : null; } catch(e) { return null; } };
+  window.loginUser = async function(email, pass) { try { await signInWithEmailAndPassword(auth, email, pass); return true; } catch (e) { return false; } };
+  window.logoutUser = async function() { try { await signOut(auth); } catch(e) {} };
+  window.checkAuthStatus = function(callback) { onAuthStateChanged(auth, user => callback(!!user)); };
+</script>
+
+<div class="theme-selector-overlay" id="themeSelector">
+  <div class="theme-title">AUTUMN</div>
+  <div class="theme-question">Какую осень вы предпочитаете?</div>
+  <div class="theme-buttons">
+    <button class="theme-btn" onclick="selectTheme('light')">☀️ Светлая</button>
+    <button class="theme-btn" onclick="selectTheme('dark')">🌙 Тёмная</button>
+  </div>
+</div>
+
+<div class="bg-animation-container" id="bgAnimation"></div>
+
+<nav class="top-nav">
+  <div class="brand" id="secretLoginBtn">AUTUMN</div>
+  <div class="nav-links">
+    <button class="nav-btn" id="bgBtn" onclick="toggleBackground()">Фон: 🍂</button>
+    <button class="nav-btn" onclick="showGallery()">Галерея 🖼️</button>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+  </div>
+</nav>
+
+<div class="author-bar" id="authorBar">
+  <h4>Режим автора</h4>
+  <button onclick="openGalleryModal()">+ Добавить фото</button>
+  <button class="btn-danger" onclick="logout()">Выйти</button>
+</div>
+
+<main id="mainContent">
+  <header class="cover-section">
+    <h1 class="cover-title">AUTUMN</h1>
+    <div class="cover-subtitle">Выпуск 1 · 2026</div>
+  </header>
+  <section class="toc-section">
+    <div class="toc-container">
+      <h2 class="toc-title">Содержание</h2>
+      <div class="toc-list" id="tocList"></div>
+    </div>
+  </section>
+  <div id="storiesContainer"></div>
+</main>
+
+<section class="gallery-section" id="gallerySection">
+  <div class="container">
+    <h2 class="toc-title" style="text-align: left; margin-bottom: 30px;">Галерея</h2>
+    <button class="nav-btn" onclick="showMain()" style="margin-bottom: 20px;">← Назад к журналу</button>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div class="modal" id="loginModal">
+  <div class="modal-card">
+    <h3 style="font-family:'Lora'; margin-bottom:15px;">Вход для автора</h3>
+    <div class="field"><label>Email</label><input id="loginUser" type="email"></div>
+    <div class="field"><label>Пароль</label><input id="loginPass" type="password"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('loginModal').classList.remove('open')">Отмена</button>
+      <button class="btn btn-dark" onclick="submitLogin()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="galleryModal">
+  <div class="modal-card">
+    <h3 style="font-family:'Lora'; margin-bottom:15px;">Добавить фото</h3>
+    <div class="field"><label>Фото</label><input type="file" id="galImage" accept="image/*"></div>
+    <div class="field"><label>Автор</label><input type="text" id="galAuthor"></div>
+    <div class="field"><label>Подпись</label><input type="text" id="galDesc"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('galleryModal').classList.remove('open')">Отмена</button>
+      <button class="btn btn-dark" onclick="saveGalleryItem()">Добавить</button>
+    </div>
+  </div>
+</div>
+
+<script src="stories.html"></script>
+<script>
+let isAuthor = false;
+let galleryData = [];
+
+document.addEventListener("DOMContentLoaded", async function() {
+  const savedTheme = localStorage.getItem('autumn_theme');
+  if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
+
+  checkAuthStatus(function(loggedIn) {
+    if (loggedIn) { isAuthor = true; document.getElementById('authorBar').classList.add('active'); }
+  });
+
+  if (typeof defaultStories !== 'undefined') {
+      renderStories(defaultStories); 
+  } else {
+      document.getElementById('tocList').innerHTML = '<p>Ошибка: тексты не загружены.</p>';
+  }
+  
+  initBackground();
+
+  const gallery = await loadFromCloud('gallery');
+  if (gallery) { galleryData = gallery; renderGallery(); }
+});
+
+let clickCount = 0;
+document.getElementById('secretLoginBtn').addEventListener('click', () => {
+  if (isAuthor) return;
+  clickCount++;
+  setTimeout(() => { clickCount = 0; }, 1500);
+  if (clickCount >= 5) { clickCount = 0; document.getElementById('loginModal').classList.add('open'); }
+});
+
+async function submitLogin() {
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  if (await loginUser(u, p)) {
+    isAuthor = true;
+    document.getElementById('loginModal').classList.remove('open');
+    document.getElementById('authorBar').classList.add('active');
+    alert('Вы вошли как автор!');
+  } else alert('Неверный пароль');
+}
+
+async function logout() { await logoutUser(); isAuthor = false; location.reload(); }
+
+function renderStories(stories) {
+  const tocList = document.getElementById('tocList');
+  const storiesContainer = document.getElementById('storiesContainer');
+  tocList.innerHTML = '';
+  storiesContainer.innerHTML = '';
+
+  stories.forEach(story => {
+    const themeClass = story.themeClass || 'bg-myrte';
+    const dotColor = themeClass === 'bg-myrte' ? '#2e5e3e' : themeClass === 'bg-dinner' ? '#b85a3a' : themeClass === 'bg-north' ? '#4a697a' : themeClass === 'bg-body' ? '#a37a40' : '#d94e34';
+
+    const tocItem = document.createElement('a');
+    tocItem.href = '#' + story.id;
+    tocItem.className = 'toc-item';
+    tocItem.innerHTML = `<div class="toc-color-dot" style="background-color: ${dotColor};"></div><div class="toc-info"><span class="toc-item-title">${story.title}</span><span class="toc-item-author">${story.kicker}</span></div>`;
+    tocList.appendChild(tocItem);
+
+    const section = document.createElement('section');
+    section.className = `story-section ${themeClass}`;
+    section.id = story.id;
+    let formattedText = story.text ? story.text.split(/\n\s*\n/).map(p => `<p>${p}</p>`).join('') : '';
+    section.innerHTML = `<div class="container"><div class="story-kicker">${story.kicker}</div><h2 class="story-title">${story.title}</h2><div class="story-text">${formattedText}</div></div>`;
+    storiesContainer.appendChild(section);
+  });
+}
+
+function showGallery() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('gallerySection').classList.add('active'); window.scrollTo(0,0); }
+function showMain() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('gallerySection').classList.remove('active'); window.scrollTo(0,0); }
+function openGalleryModal() { document.getElementById('galleryModal').classList.add('open'); }
+
+async function saveGalleryItem() {
+  const fileInput = document.getElementById('galImage');
+  const author = document.getElementById('galAuthor').value;
+  const desc = document.getElementById('galDesc').value;
+  if (!fileInput.files || !fileInput.files[0]) { alert('Выберите фото'); return; }
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    galleryData.push({ src: e.target.result, author, desc });
+    await saveToCloud('gallery', galleryData);
+    renderGallery();
+    document.getElementById('galleryModal').classList.remove('open');
+  };
+  reader.readAsDataURL(fileInput.files[0]);
+}
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+  if (galleryData.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
+  galleryData.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'gallery-item';
+    el.innerHTML = `<img src="${item.src}"><div class="gallery-info"><div class="gallery-author">${item.author}</div><div class="gallery-desc">${item.desc}</div></div>`;
+    grid.appendChild(el);
+  });
+}
+
+function selectTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('autumn_theme', theme); document.getElementById('themeSelector').style.display = 'none'; }
+function toggleTheme() { const current = document.body.getAttribute('data-theme') || 'light'; const next = current === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('autumn_theme', next); }
+
+let currentBgMode = localStorage.getItem('autumn_bg') || 'leaves';
+const bgContainer = document.getElementById('bgAnimation');
+const bgBtn = document.getElementById('bgBtn');
+function initBackground() { updateBgBtn(); startBgAnimation(); }
+function updateBgBtn() { if (currentBgMode === 'leaves') bgBtn.textContent = 'Фон: 🍂'; else if (currentBgMode === 'spiders') bgBtn.textContent = 'Фон: 🕷️'; else bgBtn.textContent = 'Фон: ✨'; }
+function toggleBackground() { if (currentBgMode === 'leaves') currentBgMode = 'spiders'; else if (currentBgMode === 'spiders') currentBgMode = 'empty'; else currentBgMode = 'leaves'; localStorage.setItem('autumn_bg', currentBgMode); updateBgBtn(); startBgAnimation(); }
+function startBgAnimation() {
+  bgContainer.innerHTML = ''; if (currentBgMode === 'empty') return;
+  for (let i = 0; i < 15; i++) {
+    const el = document.createElement('div');
+    el.className = currentBgMode === 'leaves' ? 'falling-item leaf' : 'falling-item spider';
+    if (currentBgMode === 'leaves') { const leaves = ['🍂', '🍁', '🍃']; el.textContent = leaves[Math.floor(Math.random() * leaves.length)]; } else { el.textContent = '🕷️'; }
+    el.style.left = Math.random() * 100 + 'vw'; const duration = 8 + Math.random() * 10; el.style.animationDuration = duration + 's'; el.style.animationDelay = -(Math.random() * duration) + 's'; el.style.fontSize = (16 + Math.random() * 16) + 'px'; bgContainer.appendChild(el);
+  }
+}
+</script>
+</body>
+</html>
