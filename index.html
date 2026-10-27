@@ -14,28 +14,33 @@ h1,h2,h3,h4{ font-weight: 600; line-height: 1.2; }
 button{ cursor: pointer; font-family: 'Montserrat', sans-serif; }
 input,select,textarea{ font-family: 'Lora', serif; }
 
+/* ЭКРАН ВЫБОРА ТЕМЫ */
 .theme-selector-overlay { position: fixed; inset: 0; z-index: 1000; background: #1c1b19; color: #e8dcc8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 .theme-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(40px, 8vw, 80px); margin-bottom: 20px; color: #c8a96a; }
-.theme-question { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 40px; opacity: 0.8; }
+.theme-question { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 40px; opacity: 0.8; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .theme-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
 .theme-btn { background: transparent; border: 1px solid #e8dcc8; color: #e8dcc8; padding: 15px 40px; border-radius: 50px; font-size: 16px; transition: all 0.3s ease; }
 .theme-btn:hover { background: #e8dcc8; color: #1c1b19; }
 
+/* ВЕРХНЯЯ ПАНЕЛЬ */
 .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: var(--bg-main); border-bottom: 1px solid var(--border); transition: background-color 0.4s; }
 .brand { font-family: 'Cinzel Decorative', serif; font-size: 24px; color: var(--text-main); cursor: pointer; user-select: none; }
 .nav-links { display: flex; gap: 15px; align-items: center; }
 .nav-btn { background: none; border: 1px solid var(--border); border-radius: 50px; padding: 8px 16px; color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
 .theme-toggle { background: var(--border); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; color: var(--text-main); }
 
+/* ПАНЕЛЬ АВТОРА */
 .author-bar { position: fixed; top: 70px; right: 20px; z-index: 200; display: none; flex-direction: column; gap: 10px; background: var(--border); padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-family: 'Montserrat', sans-serif; }
 .author-bar.active { display: flex; }
 .author-bar button { padding: 8px 12px; border: none; border-radius: 6px; background: #1d1d1b; color: #fff; font-size: 12px; }
 .btn-danger { background: #b42318 !important; }
 
+/* ОБЛОЖКА */
 .cover-section { min-height: 100vh; background-color: var(--c-cover-bg); color: var(--c-cover-text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 .cover-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(60px, 15vw, 120px); color: #c8a96a; line-height: 1; }
 .cover-subtitle { font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; margin-top: 20px; }
 
+/* СОДЕРЖАНИЕ */
 .toc-section { padding: 60px 20px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
 .toc-container { max-width: 800px; margin: 0 auto; }
 .toc-title { font-family: 'Cinzel Decorative', serif; font-size: 32px; margin-bottom: 40px; color: var(--text-main); text-align: center; }
@@ -43,9 +48,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .toc-item { display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--text-main); padding: 15px 20px; border-radius: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--border); transition: 0.3s; }
 .toc-item:hover { transform: translateX(5px); }
 .toc-color-dot { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
-.toc-item-title { font-size: 18px; font-weight: 600; }
-.toc-item-author { font-size: 12px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; color: var(--text-muted); }
+.toc-item-title { font-size: 18px; font-weight: 600; display: block; margin-bottom: 4px; }
+.toc-item-author { font-size: 12px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; color: var(--text-muted); display: block; }
 
+/* СТАТЬИ */
 .story-section { padding: 80px 20px; border-bottom: 1px solid var(--border); }
 .container { max-width: 800px; margin: 0 auto; }
 .story-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; opacity: 0.8; }
@@ -69,6 +75,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .bg-spice { background: #141414; color: #d4c9b8; }
 .bg-spice .story-title { color: #d94e34; }
 
+/* ГАЛЕРЕЯ */
 .gallery-section { display: none; padding: 100px 20px; background: var(--bg-main); min-height: 100vh; }
 .gallery-section.active { display: block; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
@@ -76,6 +83,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; }
 .gallery-info { padding: 15px; }
 
+/* АНИМАЦИЯ ФОНА */
 .bg-animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
 .falling-item { position: absolute; top: -50px; pointer-events: none; opacity: 0.6; }
 @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
@@ -83,6 +91,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .spider { color: #333; font-size: 20px; animation: fall linear infinite; }
 [data-theme="dark"] .spider { color: #aaa; }
 
+/* МОДАЛКИ */
 .modal { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal.open { display: flex; }
 .modal-card { background: #fffdf9; color: #1d1d1b; width: min(600px, 100%); max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 30px; }
@@ -132,9 +141,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
   window.checkAuthStatus = function(callback) { onAuthStateChanged(auth, user => callback(!!user)); };
 </script>
 
+<!-- ЭКРАН ВЫБОРА ТЕМЫ -->
 <div class="theme-selector-overlay" id="themeSelector">
   <div class="theme-title">AUTUMN</div>
-  <div class="theme-question">Какую осень вы предпочитаете?</div>
+  <div class="theme-question"><span style="font-size: 24px;">❓</span> Какую осень вы предпочитаете?</div>
   <div class="theme-buttons">
     <button class="theme-btn" onclick="selectTheme('light')">☀️ Светлая</button>
     <button class="theme-btn" onclick="selectTheme('dark')">🌙 Тёмная</button>
@@ -154,8 +164,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 
 <div class="author-bar" id="authorBar">
   <h4>Режим автора</h4>
-  <button onclick="openGalleryModal()">+ Добавить фото</button>
-  <button class="btn-danger" onclick="logout()">Выйти</button>
+  <button onclick="logout()">Выйти</button>
 </div>
 
 <main id="mainContent">
@@ -172,14 +181,37 @@ input,select,textarea{ font-family: 'Lora', serif; }
   <div id="storiesContainer"></div>
 </main>
 
+<!-- ГАЛЕРЕЯ -->
 <section class="gallery-section" id="gallerySection">
   <div class="container">
-    <h2 class="toc-title" style="text-align: left; margin-bottom: 30px;">Галерея</h2>
-    <button class="nav-btn" onclick="showMain()" style="margin-bottom: 20px;">← Назад к журналу</button>
-    <div class="gallery-grid" id="galleryGrid"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:15px;">
+      <h2 class="toc-title" style="margin-bottom:0; text-align:left;">Галерея</h2>
+      <button class="nav-btn" onclick="showMain()">← Назад к журналу</button>
+    </div>
+    
+    <div style="display:flex; gap:10px; margin-bottom:30px; border-bottom:1px solid #e6decb; padding-bottom:15px;">
+      <button id="tab-btn-general" onclick="switchGalleryTab('general')" style="background:#1d1d1b; color:#fff; border:none; padding:10px 20px; border-radius:6px; cursor:pointer;">Общие фото</button>
+      <button id="tab-btn-arina" onclick="switchGalleryTab('arina')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Арина (художник)</button>
+    </div>
+
+    <div id="gal-tab-general">
+      <button class="nav-btn" id="addGeneralBtn" style="display:none; margin-bottom:20px;" onclick="openGalleryModal('general')">+ Добавить фото</button>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+
+    <div id="gal-tab-arina" style="display:none;">
+      <div style="background:#f8f3e6; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8;">
+        <p>Меня зовут Арина, и я художник по видеоиграм. Занимаюсь в основном 2D концептами персонажей и 3D моделированием, питаю особую любовь к хоррор жанру. В свободное время в своих работах я поднимаю вопросы депрессии и деперсонализации, которые сама испытываю в связи со своим диагнозом.</p>
+        <p>У меня ОКР, я долго его боялась. Наконец-то я нашла в себе силы смело об этом говорить, показывать людям свои работы. Я надеюсь своим творчеством дотянуться до человека, которому могут помочь мои картинки.</p>
+        <p>Выход есть всегда. Пожалуйста, помните об этом.</p>
+      </div>
+      <button class="nav-btn" id="addArinaBtn" style="display:none; margin-bottom:20px;" onclick="openGalleryModal('arina')">+ Добавить рисунок</button>
+      <div class="gallery-grid" id="galleryGridArina"></div>
+    </div>
   </div>
 </section>
 
+<!-- МОДАЛКИ -->
 <div class="modal" id="loginModal">
   <div class="modal-card">
     <h3 style="font-family:'Lora'; margin-bottom:15px;">Вход для автора</h3>
@@ -207,7 +239,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 
 <script>
 // ==========================================
-// ЗДЕСЬ ВАШИ ТЕКСТЫ (ВСЕ ВШИТЫ В КОД)
+// ВАШИ ТЕКСТЫ
 // ==========================================
 const storiesData = [
   { id: "story-intro", title: "Вступительное слово", kicker: "От редакции · Мариша", themeClass: "bg-myrte", text: "Если бы я могла прийти в терапию с одним-единственным вопросом, я бы, наверное, заставила терапевта философствовать со мной о тёмной ночи души.\n\nВчера мы ехали большой компанией в машине по длинной-длинной трассе. Время близилось к шести вечера, а тьма накрыла такая, будто уже одиннадцать.\n\n— А это ещё два месяца до полного погружения во тьму! — с удивлением и тоской озвучил кто-то мои мысли.\n\nНо меня это скорее обрадовало, чем огорчило. В отличие от большинства любителей лета, я всё-таки очень люблю позднюю осень. Особенно ноябрь. В этом месяце я чувствую самое сильное переживание влюблённости. Для меня он скорее экзаменующий: проверяет, сколько тепла и света удалось накопить за полгода, и задаёт много вопросов — от «чему ты научилась и что получается уже лучше?» до философского «сможешь ли ты влюбить других в эту осень так же, как влюблена сама?».\n\nИз года в год пытаюсь. Иногда получается. Я этому нарциссично рада. В этом году я решаюсь выпустить свой первый журнал — посвящённый осени, влюблённости и женским хороводам.\n\nГранатовым, с капелькой изумруда, текстам, вышедшим из-под пера самых дорогих и важных мне людей. Сильных, мудрых и вдумчивых женщин. Надеюсь, что капельку этой настойки вы возьмёте с собой на весь будущий год, и она станет исцеляющей и защищающей от всякого зла.\n\nВедь, как сказал Дамблдор в «Узнике Азкабана»: «Счастье можно найти даже в самые тёмные времена, если не забывать обращаться к свету».\n\nИ главное, что я хотела бы сказать перед тем, как Вам придется окунуться в истории — спасибо.\nСпасибо авторам этого выпуска — за тексты, за смыслы, за истории, и в особенности за смелость говорить о важном. Сейчас это необходимо, как никогда. Этот журнал существует только потому, что вы согласились вложить в него капельку своего сердца.\n\nЭликсир этой осени в этом журнале - настоящее приворотное зелье для влюбленности в чудесное золотое время года. Злобно хихикаю. Шалость и паскудство удались!", image: null },
@@ -224,24 +256,36 @@ const storiesData = [
 ];
 
 // ==========================================
-// ЛОГИКА САЙТА
+// ЛОГИКА
 // ==========================================
 let isAuthor = false;
-let galleryData = [];
+let generalGallery = [];
+let arinaGallery = [];
+let currentGalleryTarget = 'general';
 
 document.addEventListener("DOMContentLoaded", async function() {
   const savedTheme = localStorage.getItem('autumn_theme');
   if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
 
   checkAuthStatus(function(loggedIn) {
-    if (loggedIn) { isAuthor = true; document.getElementById('authorBar').classList.add('active'); }
+    if (loggedIn) { 
+      isAuthor = true; 
+      document.getElementById('authorBar').classList.add('active');
+      // Показываем кнопки добавления, если мы в галерее
+      if(document.getElementById('gallerySection').classList.contains('active')){
+        switchGalleryTab(currentGalleryTarget);
+      }
+    }
   });
 
   renderStories(storiesData);
   initBackground();
 
-  const gallery = await loadFromCloud('gallery');
-  if (gallery) { galleryData = gallery; renderGallery(); }
+  const galGen = await loadFromCloud('gallery_general');
+  if (galGen) { generalGallery = galGen; renderGeneralGallery(); } else { renderGeneralGallery(); }
+
+  const galArina = await loadFromCloud('gallery_arina');
+  if (galArina) { arinaGallery = galArina; renderArinaGallery(); } else { renderArinaGallery(); }
 });
 
 let clickCount = 0;
@@ -259,6 +303,7 @@ async function submitLogin() {
     isAuthor = true;
     document.getElementById('loginModal').classList.remove('open');
     document.getElementById('authorBar').classList.add('active');
+    switchGalleryTab(currentGalleryTarget);
     alert('Вы вошли как автор!');
   } else alert('Неверный пароль');
 }
@@ -290,35 +335,118 @@ function renderStories(stories) {
   });
 }
 
-function showGallery() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('gallerySection').classList.add('active'); window.scrollTo(0,0); }
-function showMain() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('gallerySection').classList.remove('active'); window.scrollTo(0,0); }
-function openGalleryModal() { document.getElementById('galleryModal').classList.add('open'); }
+function showGallery() { 
+  document.getElementById('mainContent').style.display = 'none'; 
+  document.getElementById('gallerySection').classList.add('active'); 
+  switchGalleryTab('general');
+  window.scrollTo(0,0); 
+}
+function showMain() { 
+  document.getElementById('mainContent').style.display = 'block'; 
+  document.getElementById('gallerySection').classList.remove('active'); 
+  window.scrollTo(0,0); 
+}
+
+function switchGalleryTab(tab) {
+  currentGalleryTarget = tab;
+  document.getElementById('gal-tab-general').style.display = tab === 'general' ? 'block' : 'none';
+  document.getElementById('gal-tab-arina').style.display = tab === 'arina' ? 'block' : 'none';
+  
+  const btnGen = document.getElementById('tab-btn-general');
+  const btnArina = document.getElementById('tab-btn-arina');
+  
+  if (tab === 'general') {
+    btnGen.style.background = '#1d1d1b'; btnGen.style.color = '#fff'; btnGen.style.border = 'none';
+    btnArina.style.background = 'none'; btnArina.style.color = '#1d1d1b'; btnArina.style.border = '1px solid #ccc';
+  } else {
+    btnArina.style.background = '#1d1d1b'; btnArina.style.color = '#fff'; btnArina.style.border = 'none';
+    btnGen.style.background = 'none'; btnGen.style.color = '#1d1d1b'; btnGen.style.border = '1px solid #ccc';
+  }
+  
+  if (isAuthor) {
+    document.getElementById('addGeneralBtn').style.display = tab === 'general' ? 'inline-block' : 'none';
+    document.getElementById('addArinaBtn').style.display = tab === 'arina' ? 'inline-block' : 'none';
+  }
+}
+
+function openGalleryModal(target) { 
+  currentGalleryTarget = target;
+  document.getElementById('galleryModal').classList.add('open'); 
+}
 
 async function saveGalleryItem() {
   const fileInput = document.getElementById('galImage');
   const author = document.getElementById('galAuthor').value;
   const desc = document.getElementById('galDesc').value;
   if (!fileInput.files || !fileInput.files[0]) { alert('Выберите фото'); return; }
+  
   const reader = new FileReader();
   reader.onload = async function(e) {
-    galleryData.push({ src: e.target.result, author, desc });
-    await saveToCloud('gallery', galleryData);
-    renderGallery();
+    const newItem = { src: e.target.result, author, desc };
+    
+    if (currentGalleryTarget === 'general') {
+      generalGallery.push(newItem);
+      await saveToCloud('gallery_general', generalGallery);
+      renderGeneralGallery();
+    } else {
+      arinaGallery.push(newItem);
+      await saveToCloud('gallery_arina', arinaGallery);
+      renderArinaGallery();
+    }
+    
     document.getElementById('galleryModal').classList.remove('open');
+    document.getElementById('galImage').value = '';
+    document.getElementById('galAuthor').value = '';
+    document.getElementById('galDesc').value = '';
   };
   reader.readAsDataURL(fileInput.files[0]);
 }
 
-function renderGallery() {
+function renderGeneralGallery() {
   const grid = document.getElementById('galleryGrid');
   grid.innerHTML = '';
-  if (galleryData.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
-  galleryData.forEach(item => {
+  if (generalGallery.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
+  generalGallery.forEach((item, index) => {
     const el = document.createElement('div');
     el.className = 'gallery-item';
-    el.innerHTML = `<img src="${item.src}"><div class="gallery-info"><div class="gallery-author">${item.author}</div><div class="gallery-desc">${item.desc}</div></div>`;
+    el.style.position = 'relative';
+    el.innerHTML = `
+      <img src="${item.src}">
+      <div class="gallery-info"><div class="gallery-author">${item.author}</div><div class="gallery-desc">${item.desc}</div></div>
+      ${isAuthor ? `<button onclick="deleteGalleryItem(${index}, 'general')" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">×</button>` : ''}
+    `;
     grid.appendChild(el);
   });
+}
+
+function renderArinaGallery() {
+  const grid = document.getElementById('galleryGridArina');
+  grid.innerHTML = '';
+  if (arinaGallery.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
+  arinaGallery.forEach((item, index) => {
+    const el = document.createElement('div');
+    el.className = 'gallery-item';
+    el.style.position = 'relative';
+    el.innerHTML = `
+      <img src="${item.src}">
+      <div class="gallery-info"><div class="gallery-author">${item.author}</div><div class="gallery-desc">${item.desc}</div></div>
+      ${isAuthor ? `<button onclick="deleteGalleryItem(${index}, 'arina')" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">×</button>` : ''}
+    `;
+    grid.appendChild(el);
+  });
+}
+
+async function deleteGalleryItem(index, type) {
+  if (!confirm('Удалить это фото?')) return;
+  if (type === 'general') {
+    generalGallery.splice(index, 1);
+    await saveToCloud('gallery_general', generalGallery);
+    renderGeneralGallery();
+  } else {
+    arinaGallery.splice(index, 1);
+    await saveToCloud('gallery_arina', arinaGallery);
+    renderArinaGallery();
+  }
 }
 
 function selectTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('autumn_theme', theme); document.getElementById('themeSelector').style.display = 'none'; }
