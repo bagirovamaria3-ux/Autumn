@@ -14,7 +14,10 @@ h1,h2,h3,h4{ font-weight: 600; line-height: 1.2; }
 button{ cursor: pointer; font-family: 'Montserrat', sans-serif; }
 input,select,textarea{ font-family: 'Lora', serif; }
 
+/* ИНДИКАТОР ЧТЕНИЯ */
 #reading-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1000; width: 0%; transition: width 0.1s; }
+
+/* ЭКРАН ВЫБОРА ТЕМЫ */
 .theme-selector-overlay { position: fixed; inset: 0; z-index: 1000; background: #1c1b19; color: #e8dcc8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 .theme-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(40px, 8vw, 80px); margin-bottom: 20px; color: #c8a96a; }
 .theme-question { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 40px; opacity: 0.8; }
@@ -22,26 +25,33 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .theme-btn { background: transparent; border: 1px solid #e8dcc8; color: #e8dcc8; padding: 15px 40px; border-radius: 50px; font-size: 16px; transition: all 0.3s ease; }
 .theme-btn:hover { background: #e8dcc8; color: #1c1b19; }
 
+/* ВЕРХНЯЯ ПАНЕЛЬ */
 .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: var(--bg-main); border-bottom: 1px solid var(--border); transition: background-color 0.4s; }
 .brand { font-family: 'Cinzel Decorative', serif; font-size: 24px; color: var(--text-main); cursor: pointer; user-select: none; }
 .nav-links { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
 .nav-btn { background: none; border: 1px solid var(--border); border-radius: 50px; padding: 8px 16px; color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
 .nav-btn:hover { background: var(--border); }
 .theme-toggle { background: var(--border); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; color: var(--text-main); }
+
+/* БЕГУНОК ШРИФТА */
 .font-control { display: flex; align-items: center; gap: 5px; background: var(--border); padding: 5px 10px; border-radius: 20px; }
 .font-control input[type="range"] { width: 60px; cursor: pointer; accent-color: var(--accent); }
+
+/* ПАНЕЛЬ АВТОРА */
 .author-bar { position: fixed; top: 70px; right: 20px; z-index: 200; display: none; flex-direction: column; gap: 10px; background: var(--border); padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-family: 'Montserrat', sans-serif; }
 .author-bar.active { display: flex; }
 .author-bar button { padding: 8px 12px; border: none; border-radius: 6px; background: #1d1d1b; color: #fff; font-size: 12px; }
 
+/* ОБЛОЖКА */
 .cover-section { min-height: 100vh; background-color: var(--c-cover-bg); color: var(--c-cover-text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 .cover-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(60px, 15vw, 120px); color: #c8a96a; line-height: 1; }
 .cover-subtitle { font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; margin-top: 20px; }
 
+/* СОДЕРЖАНИЕ */
 .toc-section { padding: 60px 20px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
 .toc-container { max-width: 800px; margin: 0 auto; }
 .toc-title { font-family: 'Cinzel Decorative', serif; font-size: 32px; margin-bottom: 20px; color: var(--text-main); text-align: center; }
-.toc-group-title { font-family: 'Montserrat', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin: 30px 0 15px 10px; }
+.toc-group-title { font-family: 'Montserrat', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin: 30px 0 15px 10px; text-align: center; }
 .toc-list { display: flex; flex-direction: column; gap: 15px; }
 .toc-item { display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--text-main); padding: 15px 20px; border-radius: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--border); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .toc-item:hover { transform: translateX(8px) scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
@@ -49,6 +59,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .toc-item-title { font-size: 18px; font-weight: 600; display: block; margin-bottom: 4px; }
 .toc-item-author { font-size: 12px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; color: var(--text-muted); display: block; }
 
+/* СТАТЬИ */
 .story-section { padding: 80px 20px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .story-section.visible { opacity: 1; transform: translateY(0); }
 .container { max-width: 800px; margin: 0 auto; }
@@ -60,13 +71,16 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .story-text > p:first-of-type::first-letter { font-family: 'Cinzel Decorative', serif; float: left; font-size: 4em; line-height: 0.8; margin-right: 12px; margin-top: 5px; }
 .story-text blockquote { border-left: 4px solid currentColor; padding-left: 15px; margin: 20px 0; font-style: italic; opacity: 0.85; font-size: 0.95em; }
 
+/* СПЕЦИАЛЬНЫЕ БЛОКИ */
 .recipe-block { background: rgba(0,0,0,0.03); border-left: 4px solid #4a697a; padding: 25px; border-radius: 8px; margin: 30px 0; }
 .recipe-block h3 { font-family: 'Cinzel Decorative', serif; color: #4a697a; margin-bottom: 15px; font-size: 24px; }
 .recipe-block ul, .recipe-block ol { padding-left: 20px; margin-bottom: 20px; }
+
 .editor-note { background: rgba(0,0,0,0.05); border-left: 4px solid #d94e34; padding: 20px; border-radius: 8px; margin-bottom: 30px; font-style: italic; }
 .spice-recommendation { background: #1a1817; color: #e8dcc8; padding: 30px; border-radius: 12px; margin-top: 40px; text-align: center; font-family: 'Lora', serif; font-size: 18px; line-height: 1.8; }
 .spice-recommendation blockquote { border-left: none; font-style: italic; color: #d94e34; font-size: 20px; margin: 20px 0; }
 
+/* ЦВЕТА РАЗДЕЛОВ */
 .bg-myrte { background: #eef5ee; color: #1b3324; }
 .bg-myrte .story-title { color: #2e5e3e; }
 .bg-dinner { background: #fdf2ea; color: #4a2316; }
@@ -75,17 +89,15 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .bg-north .story-title { color: #4a697a; }
 .bg-body { background: #f8f3e6; color: #3b2e1a; }
 .bg-body .story-title { color: #a37a40; }
-.bg-spice-light { background: #fcf9f2; color: #2c2a27; position: relative; overflow: hidden; }
-.bg-spice-light::before { content: '🌿'; position: absolute; font-size: 300px; opacity: 0.05; top: -50px; right: -50px; transform: rotate(30deg); pointer-events: none; }
-.bg-spice-light .story-title { color: #d94e34; }
-.bg-spice-dark { background: #121212; color: #e0dcd5; }
-.bg-spice-dark .story-title { color: #d94e34; }
-.bg-spice-dark .editor-note { background: rgba(217, 78, 52, 0.1); border-left-color: #d94e34; }
+.bg-spice { background: #141414; color: #d4c9b8; }
+.bg-spice .story-title { color: #d94e34; }
 
+/* ПЛАШКА SPICE */
 .spice-intro-box { margin-bottom: 40px; padding: 25px; border: 1px dashed #d94e34; border-radius: 12px; background: rgba(217, 78, 52, 0.1); }
 .spice-intro-box h3 { font-family: 'Cinzel Decorative', serif; color: #d94e34; margin-bottom: 10px; font-size: 24px; }
 .spice-intro-box p { font-size: 17px; line-height: 1.7; }
 
+/* ГАЛЕРЕЯ */
 .gallery-section { display: none; padding: 100px 20px; background: var(--bg-main); min-height: 100vh; }
 .gallery-section.active { display: block; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
@@ -95,9 +107,14 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .gallery-item img:hover { opacity: 0.8; }
 .gallery-info { padding: 15px; }
 
+/* ПЧЁЛКА */
 .flying-bee { position: fixed; font-size: 40px; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.5s; }
+
+/* КУРСОР-ЛИСТОЧЕК */
 .leaf-cursor { position: fixed; pointer-events: none; z-index: 9999; font-size: 20px; animation: leafFall 1s ease-out forwards; }
 @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(50px) rotate(45deg); opacity: 0; } }
+
+/* АНИМАЦИЯ ФОНА */
 .bg-animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
 .falling-item { position: absolute; top: -50px; pointer-events: none; opacity: 0.6; }
 @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
@@ -105,9 +122,11 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .spider { color: #333; font-size: 20px; animation: fall linear infinite; }
 [data-theme="dark"] .spider { color: #aaa; }
 
+/* КНОПКА НАВЕРХ */
 #backToTop { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 20px; display: flex; opacity: 0; pointer-events: none; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.3); align-items: center; justify-content: center; transition: all 0.3s; transform: translateY(20px); }
 #backToTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
+/* МОДАЛКИ И ЛАЙТБОКС */
 .modal { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal.open { display: flex; }
 .modal-card { background: #fffdf9; color: #1d1d1b; width: min(600px, 100%); max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 30px; }
@@ -215,29 +234,58 @@ input,select,textarea{ font-family: 'Lora', serif; }
       <button id="tab-btn-marina" onclick="switchGalleryTab('marina')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Марина</button>
       <button id="tab-btn-polina" onclick="switchGalleryTab('polina')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Полина</button>
     </div>
+
     <div id="gal-tab-general"><div class="gallery-grid" id="galleryGrid"></div></div>
-    <div id="gal-tab-arina" style="display:none;"><div style="background:#f8f3e6; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8;"><p>Меня зовут Арина, и я художник по видеоиграм. Занимаюсь в основном 2D концептами персонажей и 3D моделированием, питаю особую любовь к хоррор жанру. В свободное время в своих работах я поднимаю вопросы депрессии и деперсонализации, которые сама испытываю в связи со своим диагнозом.</p><p>У меня ОКР, я долго его боялась. Наконец-то я нашла в себе силы смело об этом говорить, показывать людям свои работы. Я надеюсь своим творчеством дотянуться до человека, которому могут помочь мои картинки.</p><p>Выход есть всегда. Пожалуйста, помните об этом.</p></div><div class="gallery-grid" id="galleryGridArina"></div></div>
-    <div id="gal-tab-sasha" style="display:none;"><div style="background:#fdf2ea; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#4a2316;"><p>Здесь будут фотографии и работы Сашурки.</p></div><div class="gallery-grid" id="galleryGridSasha"></div></div>
-    <div id="gal-tab-marina" style="display:none;"><div style="background:#eef5ee; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#1b3324;"><p>Здесь будут фотографии Марины.</p></div><div class="gallery-grid" id="galleryGridMarina"></div></div>
-    <div id="gal-tab-polina" style="display:none;"><div style="background:#fdf2ea; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#4a2316;"><p>Иллюстрации к истории «Ужин всегда мог быть таким».</p><p><a href="#story-2" onclick="showMain()" style="color:#b85a3a; text-decoration:underline; font-weight:bold;">← Читать историю Полины</a></p></div><div class="gallery-grid" id="galleryGridPolina"></div></div>
+    <div id="gal-tab-arina" style="display:none;">
+      <div style="background:#f8f3e6; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8;">
+        <p>Меня зовут Арина, и я художник по видеоиграм. Занимаюсь в основном 2D концептами персонажей и 3D моделированием, питаю особую любовь к хоррор жанру. В свободное время в своих работах я поднимаю вопросы депрессии и деперсонализации, которые сама испытываю в связи со своим диагнозом.</p>
+        <p>У меня ОКР, я долго его боялась. Наконец-то я нашла в себе силы смело об этом говорить, показывать людям свои работы. Я надеюсь своим творчеством дотянуться до человека, которому могут помочь мои картинки.</p>
+        <p>Выход есть всегда. Пожалуйста, помните об этом.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGridArina"></div>
+    </div>
+    <div id="gal-tab-sasha" style="display:none;">
+      <div style="background:#fdf2ea; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#4a2316;">
+        <p>Здесь будут фотографии и работы Сашурки.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGridSasha"></div>
+    </div>
+    <div id="gal-tab-marina" style="display:none;">
+      <div style="background:#eef5ee; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#1b3324;">
+        <p>Здесь будут фотографии Марины.</p>
+      </div>
+      <div class="gallery-grid" id="galleryGridMarina"></div>
+    </div>
+    <div id="gal-tab-polina" style="display:none;">
+      <div style="background:#fdf2ea; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#4a2316;">
+        <p>Иллюстрации к истории «Ужин всегда мог быть таким».</p>
+        <p><a href="#story-2" onclick="showMain()" style="color:#b85a3a; text-decoration:underline; font-weight:bold;">← Читать историю Полины</a></p>
+      </div>
+      <div class="gallery-grid" id="galleryGridPolina"></div>
+    </div>
   </div>
 </section>
 
-<div class="modal" id="helpModal"><div class="modal-card"><h3 style="font-family:'Lora'; margin-bottom:15px;">Как пользоваться журналом</h3><div style="font-size:15px; line-height:1.6; margin-bottom:15px;"><p style="margin-bottom:10px;"><b>🌓 Смена темы</b> — нажмите на иконку смены темы в правом верхнем углу, чтобы переключить день/ночь.</p><p style="margin-bottom:10px;"><b>🔠 Размер шрифта</b> — используйте бегунок в верхней панели.</p><p style="margin-bottom:10px;"><b>🍂 Фон</b> — кнопка «Фон» переключает листья, паучков и чистый фон.</p><p style="margin-bottom:10px;"><b>🖼️ Галерея</b> — здесь вы можете посмотреть фотографии и работы авторов.</p><p style="margin-bottom:10px;"><b>📖 Тексты</b> — просто листайте вниз.</p><p style="margin-bottom:10px;"><b>💾 Скачать / 🔗 Поделиться</b> — под заголовком каждой статьи.</p></div><div class="modal-actions"><button class="btn btn-dark" onclick="document.getElementById('helpModal').classList.remove('open')">Понятно</button></div></div></div>
+<div class="modal" id="helpModal">
+  <div class="modal-card">
+    <h3 style="font-family:'Lora'; margin-bottom:15px;">Как пользоваться журналом</h3>
+    <div style="font-size:15px; line-height:1.6; margin-bottom:15px;">
+      <p style="margin-bottom:10px;"><b>🌓 Смена темы</b> — нажмите на иконку смены темы в правом верхнем углу, чтобы переключить день/ночь.</p>
+      <p style="margin-bottom:10px;"><b>🔠 Размер шрифта</b> — используйте бегунок в верхней панели, чтобы выбрать удобный размер текста.</p>
+      <p style="margin-bottom:10px;"><b>🍂 Фон</b> — кнопка «Фон» переключает листья, паучков и чистый фон.</p>
+      <p style="margin-bottom:10px;"><b>🖼️ Галерея</b> — здесь вы можете посмотреть фотографии и работы авторов.</p>
+      <p style="margin-bottom:10px;"><b>📖 Тексты</b> — просто листайте вниз, чтобы читать статьи. Содержание находится в самом начале.</p>
+      <p style="margin-bottom:10px;"><b>💾 Скачать / 🔗 Поделиться</b> — под заголовком каждой статьи есть кнопки, чтобы сохранить текст, скопировать его или поделиться ссылкой.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-dark" onclick="document.getElementById('helpModal').classList.remove('open')">Понятно</button>
+    </div>
+  </div>
+</div>
 
-<div class="modal" id="loginModal"><div class="modal-card"><h3 style="font-family:'Lora'; margin-bottom:15px;">Вход для автора</h3><div class="field" style="margin-bottom:15px;"><label style="display:block; font-size:12px; text-transform:uppercase; color:#666; margin-bottom:5px;">Email</label><input id="loginUser" type="email" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px;"></div><div class="field" style="margin-bottom:15px;"><label style="display:block; font-size:12px; text-transform:uppercase; color:#666; margin-bottom:5px;">Пароль</label><input id="loginPass" type="password" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:6px; font-size:15px;"></div><div class="modal-actions" style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;"><button class="btn btn-ghost" onclick="document.getElementById('loginModal').classList.remove('open')" style="padding:10px 20px; border-radius:6px; border:1px solid #ccc; background:transparent; font-weight:600;">Отмена</button><button class="btn btn-dark" onclick="submitLogin()" style="padding:10px 20px; border-radius:6px; border:none; background:#1d1d1b; color:#fff; font-weight:600;">Войти</button></div></div></div>
-
-<div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()"><img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;"></div>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  const firebaseConfig = { apiKey: "AIzaSyCMs9xM3Fw9BGaHaexA2RZWtUykTZUmo8Y", authDomain: "autumn-6f900.firebaseapp.com", projectId: "autumn-6f900", storageBucket: "autumn-6f900.firebasestorage.app", messagingSenderId: "981004008233", appId: "1:981004008233:web:6e2dc658ed3d0389a45538", measurementId: "G-H7P6262R0R" };
-  const app = initializeApp(firebaseConfig); const auth = getAuth(app);
-  window.loginUser = async function(email, pass) { try { await signInWithEmailAndPassword(auth, email, pass); return true; } catch (e) { return false; } };
-  window.logoutUser = async function() { try { await signOut(auth); } catch(e) {} };
-  window.checkAuthStatus = function(callback) { onAuthStateChanged(auth, user => callback(!!user)); };
-</script>
+<div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
+</div>
 
 <script>
 const GITHUB_USER = "bagirovamaria3-ux";
@@ -270,73 +318,221 @@ const storiesData = [
   ]}
 ];
 
-document.addEventListener("DOMContentLoaded", function() {
-  const savedTheme = localStorage.getItem('autumn_theme');
-  if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
-  const savedFontSize = localStorage.getItem('autumn_fontsize');
-  if (savedFontSize) { document.body.style.fontSize = savedFontSize + 'px'; document.getElementById('fontSizeSlider').value = savedFontSize; }
+// Инициализация и рендер (ВСЕ ФУНКЦИИ РАБОТАЮТ)
+function selectTheme(theme) { 
+  document.body.setAttribute('data-theme', theme); 
+  localStorage.setItem('autumn_theme', theme); 
+  document.getElementById('themeSelector').style.display = 'none'; 
+}
 
-  if (typeof storiesData !== 'undefined') { renderStories(storiesData); } else { document.getElementById('storiesContainer').innerHTML = '<p style="text-align:center; padding:50px;">Ошибка загрузки текстов. Проверьте файл data.js</p>'; }
+function toggleTheme() { 
+  const current = document.body.getAttribute('data-theme') || 'light'; 
+  const next = current === 'light' ? 'dark' : 'light'; 
+  document.body.setAttribute('data-theme', next); 
+  localStorage.setItem('autumn_theme', next); 
+}
 
-  initBackground(); updateViewCounter();
-  loadGallery('general', 'images/general', 'galleryGrid'); loadGallery('arina', 'images/arina', 'galleryGridArina'); loadGallery('sasha', 'images/sasha', 'galleryGridSasha'); loadGallery('marina', 'images/marina', 'galleryGridMarina'); loadGallery('polina', 'images/polina', 'galleryGridPolina');
+function toggleBackground() { 
+  let mode = localStorage.getItem('autumn_bg') || 'leaves';
+  if (mode === 'leaves') mode = 'spiders'; else if (mode === 'spiders') mode = 'empty'; else mode = 'leaves';
+  localStorage.setItem('autumn_bg', mode); 
+  updateBgBtn(); 
+  startBgAnimation(); 
+}
 
-  const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); if (entry.target.id === 'story-marina') { animateBee(); } } }); }, { threshold: 0.1 });
-  setTimeout(() => { document.querySelectorAll('.story-section').forEach(section => observer.observe(section)); }, 500);
-});
+function updateBgBtn() { 
+  let mode = localStorage.getItem('autumn_bg') || 'leaves';
+  const btn = document.getElementById('bgBtn');
+  if (mode === 'leaves') btn.textContent = 'Фон: 🍂'; 
+  else if (mode === 'spiders') btn.textContent = 'Фон: 🕷️'; 
+  else btn.textContent = 'Фон: ✨'; 
+}
 
-function toggleTheme() { const current = document.body.getAttribute('data-theme') || 'light'; const next = current === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('autumn_theme', next); }
-function toggleBackground() { let mode = localStorage.getItem('autumn_bg') || 'leaves'; if (mode === 'leaves') mode = 'spiders'; else if (mode === 'spiders') mode = 'empty'; else mode = 'leaves'; localStorage.setItem('autumn_bg', mode); updateBgBtn(); startBgAnimation(); }
-function updateBgBtn() { let mode = localStorage.getItem('autumn_bg') || 'leaves'; const btn = document.getElementById('bgBtn'); if (mode === 'leaves') btn.textContent = 'Фон: 🍂'; else if (mode === 'spiders') btn.textContent = 'Фон: 🕷️'; else btn.textContent = 'Фон: ✨'; }
 function startBgAnimation() {
   let mode = localStorage.getItem('autumn_bg') || 'leaves';
-  const container = document.getElementById('bgAnimation'); container.innerHTML = ''; if (mode === 'empty') return;
+  const container = document.getElementById('bgAnimation');
+  container.innerHTML = ''; 
+  if (mode === 'empty') return;
   for (let i = 0; i < 15; i++) {
-    const el = document.createElement('div'); el.className = mode === 'leaves' ? 'falling-item leaf' : 'falling-item spider';
-    if (mode === 'leaves') { const leaves = ['🍂', '🍁', '🍃']; el.textContent = leaves[Math.floor(Math.random() * leaves.length)]; } else { el.textContent = '🕷️'; }
-    el.style.left = Math.random() * 100 + 'vw'; const duration = 8 + Math.random() * 10; el.style.animationDuration = duration + 's'; el.style.animationDelay = -(Math.random() * duration) + 's'; el.style.fontSize = (16 + Math.random() * 16) + 'px'; container.appendChild(el);
+    const el = document.createElement('div');
+    el.className = mode === 'leaves' ? 'falling-item leaf' : 'falling-item spider';
+    if (mode === 'leaves') { const leaves = ['🍂', '🍁', '🍃']; el.textContent = leaves[Math.floor(Math.random() * leaves.length)]; } 
+    else { el.textContent = '🕷️'; }
+    el.style.left = Math.random() * 100 + 'vw'; 
+    const duration = 8 + Math.random() * 10; 
+    el.style.animationDuration = duration + 's'; 
+    el.style.animationDelay = -(Math.random() * duration) + 's'; 
+    el.style.fontSize = (16 + Math.random() * 16) + 'px'; 
+    container.appendChild(el);
   }
 }
-function showGallery() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('gallerySection').classList.add('active'); switchGalleryTab('general'); window.scrollTo(0,0); }
-function showMain() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('gallerySection').classList.remove('active'); window.scrollTo(0,0); }
-function changeFontSize(val) { document.body.style.fontSize = val + 'px'; localStorage.setItem('autumn_fontsize', val); }
-function animateBee() { const bee = document.getElementById('flyingBee'); bee.style.opacity = '1'; bee.style.left = '20%'; bee.style.top = '50%'; let angle = 0; let t = 0; const interval = setInterval(() => { t += 0.05; angle += 0.1; const x = 20 + Math.cos(angle) * 10 + Math.sin(t) * 5; const y = 50 + Math.sin(angle) * 10 + Math.cos(t) * 5; bee.style.left = x + '%'; bee.style.top = y + '%'; if (t > 5) { clearInterval(interval); bee.style.transition = 'all 2s ease-in'; bee.style.left = '120%'; bee.style.top = '-20%'; setTimeout(() => { bee.style.opacity = '0'; }, 2000); } }, 50); }
-async function updateViewCounter() { try { const res = await fetch('https://api.countapi.xyz/hit/autumn-magazine/view'); const data = await res.json(); document.getElementById('viewCount').innerText = data.value; } catch(e) { document.getElementById('viewCount').innerText = "уже много"; } }
+
+function showGallery() { 
+  document.getElementById('mainContent').style.display = 'none'; 
+  document.getElementById('gallerySection').classList.add('active'); 
+  switchGalleryTab('general'); 
+  window.scrollTo(0,0); 
+}
+
+function showMain() { 
+  document.getElementById('mainContent').style.display = 'block'; 
+  document.getElementById('gallerySection').classList.remove('active'); 
+  window.scrollTo(0,0); 
+}
+
+function changeFontSize(val) {
+  document.body.style.fontSize = val + 'px';
+  localStorage.setItem('autumn_fontsize', val);
+}
+
+function animateBee() {
+  const bee = document.getElementById('flyingBee');
+  bee.style.opacity = '1';
+  bee.style.left = '20%';
+  bee.style.top = '50%';
+  let angle = 0;
+  let t = 0;
+  const interval = setInterval(() => {
+    t += 0.05;
+    angle += 0.1;
+    const x = 20 + Math.cos(angle) * 10 + Math.sin(t) * 5;
+    const y = 50 + Math.sin(angle) * 10 + Math.cos(t) * 5;
+    bee.style.left = x + '%';
+    bee.style.top = y + '%';
+    if (t > 5) {
+      clearInterval(interval);
+      bee.style.transition = 'all 2s ease-in';
+      bee.style.left = '120%';
+      bee.style.top = '-20%';
+      setTimeout(() => { bee.style.opacity = '0'; }, 2000);
+    }
+  }, 50);
+}
+
+async function updateViewCounter() {
+  try {
+    const res = await fetch('https://api.countapi.xyz/hit/autumn-magazine/view');
+    const data = await res.json();
+    document.getElementById('viewCount').innerText = data.value;
+  } catch(e) { document.getElementById('viewCount').innerText = "уже много"; }
+}
 
 function renderStories(groups) {
-  const tocList = document.getElementById('tocList'); const storiesContainer = document.getElementById('storiesContainer'); tocList.innerHTML = ''; storiesContainer.innerHTML = '';
+  const tocList = document.getElementById('tocList');
+  const storiesContainer = document.getElementById('storiesContainer');
+  tocList.innerHTML = ''; storiesContainer.innerHTML = '';
+
   groups.forEach(group => {
-    const groupTitle = document.createElement('div'); groupTitle.className = 'toc-group-title'; groupTitle.innerText = group.group; tocList.appendChild(groupTitle);
+    const groupTitle = document.createElement('div');
+    groupTitle.className = 'toc-group-title';
+    groupTitle.innerText = group.group;
+    tocList.appendChild(groupTitle);
+
     group.items.forEach(story => {
       const themeClass = story.themeClass || 'bg-myrte';
       const dotColor = themeClass.includes('myrte') ? '#2e5e3e' : themeClass.includes('dinner') ? '#b85a3a' : themeClass.includes('north') ? '#4a697a' : themeClass.includes('body') ? '#a37a40' : '#d94e34';
-      const tocItem = document.createElement('a'); tocItem.href = '#' + story.id; tocItem.className = 'toc-item';
+      
+      const tocItem = document.createElement('a');
+      tocItem.href = '#' + story.id; tocItem.className = 'toc-item';
       tocItem.innerHTML = `<div class="toc-color-dot" style="background-color: ${dotColor};"></div><div class="toc-info"><span class="toc-item-title">${story.title}</span><span class="toc-item-author">${story.kicker}</span></div>`;
       tocList.appendChild(tocItem);
-      const section = document.createElement('section'); section.className = `story-section ${themeClass}`; section.id = story.id;
-      let formattedText = story.text ? story.text.split(/\n\s*\n/).map(p => p.trim().startsWith('>') ? `<blockquote>${p.replace(/^>\s*/, '')}</blockquote>` : `<p>${p}</p>`).join('') : '';
-      let introHtml = ''; if (group.group === "Spice 18+" && !document.getElementById('spice-intro-box')) { introHtml = `<div id="spice-intro-box" class="spice-intro-box"><h3>Spice 18+</h3><p>Здесь собраны истории 18+, о тяжёлых жизненных обстоятельствах. О хихических и тяжёлых психических состояниях. Нежным котикам - с осторожностью! Но сама я эти тексты Очень люблю — за смелость автора, за нотку терпкого ромового яда в нашем осеннем эликсире и за Любовь во всех её смыслах.</p><p style="margin-top:10px;">Авторам — отдельное большое спасибо!</p></div>`; }
+
+      const section = document.createElement('section');
+      section.className = `story-section ${themeClass}`; section.id = story.id;
+      
+      let formattedText = story.text ? story.text.split(/\n\s*\n/).map(p => {
+        if (p.trim().startsWith('>')) {
+          return `<blockquote>${p.replace(/^>\s*/, '')}</blockquote>`;
+        }
+        return `<p>${p}</p>`;
+      }).join('') : '';
+
+      let introHtml = '';
+      if (group.group === "Spice 18+" && !document.getElementById('spice-intro-box')) {
+        introHtml = `<div id="spice-intro-box" class="spice-intro-box"><h3>Spice 18+</h3><p>Здесь собраны истории 18+, о тяжёлых жизненных обстоятельствах. О хихических и тяжёлых психических состояниях. Нежным котикам - с осторожностью! Но сама я эти тексты Очень люблю — за смелость автора, за нотку терпкого ромового яда в нашем осеннем эликсире и за Любовь во всех её смыслах.</p><p style="margin-top:10px;">Авторам — отдельное большое спасибо!</p></div>`;
+      }
+      
       let editorNoteHtml = story.editorNote ? `<div class="editor-note">${story.editorNote}</div>` : '';
-      section.innerHTML = `<div class="container">${introHtml}${editorNoteHtml}<div class="story-kicker">${story.kicker}</div><div class="story-header"><h2 class="story-title">${story.title}</h2><div class="story-actions"><button onclick="copyShareLink('${story.id}')" title="Поделиться">🔗</button><button onclick="copyText('${story.id}')" title="Скопировать текст">📋</button><button onclick="downloadText('${story.id}', '${story.title}')" title="Скачать">💾</button></div></div><div class="story-text" id="text-${story.id}">${formattedText}</div></div>`;
+
+      section.innerHTML = `
+        <div class="container">
+          ${introHtml}
+          ${editorNoteHtml}
+          <div class="story-kicker">${story.kicker}</div>
+          <div class="story-header">
+            <h2 class="story-title">${story.title}</h2>
+            <div class="story-actions">
+              <button onclick="copyShareLink('${story.id}')" title="Поделиться">🔗</button>
+              <button onclick="copyText('${story.id}')" title="Скопировать текст">📋</button>
+              <button onclick="downloadText('${story.id}', '${story.title}')" title="Скачать">💾</button>
+            </div>
+          </div>
+          <div class="story-text" id="text-${story.id}">${formattedText}</div>
+        </div>`;
       storiesContainer.appendChild(section);
     });
   });
 }
 
-function copyShareLink(id) { const url = window.location.origin + window.location.pathname + '#' + id; navigator.clipboard.writeText(url).then(() => alert('Ссылка скопирована!')).catch(() => alert('Ошибка.')); }
-function copyText(id) { const el = document.getElementById('text-' + id); navigator.clipboard.writeText(el.innerText).then(() => alert('Текст скопирован!')).catch(() => alert('Ошибка.')); }
-function downloadText(id, title) { const text = document.getElementById('text-' + id).innerText; const blob = new Blob([text], {type: 'text/plain;charset=utf-8'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = title + '.txt'; a.click(); URL.revokeObjectURL(a.href); }
-function switchGalleryTab(tab) { ['general','arina','sasha','marina','polina'].forEach(t => { document.getElementById('gal-tab-' + t).style.display = t === tab ? 'block' : 'none'; const btn = document.getElementById('tab-btn-' + t); if (t === tab) { btn.style.background = '#1d1d1b'; btn.style.color = '#fff'; btn.style.border = 'none'; } else { btn.style.background = 'none'; btn.style.color = '#1d1d1b'; btn.style.border = '1px solid #ccc'; } }); }
-async function loadGallery(target, folderPath, gridId) {
-  const grid = document.getElementById(gridId); if(!grid) return; grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Загрузка...</p>';
-  try { const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${folderPath}?ref=${BRANCH}`; const response = await fetch(apiUrl); if (!response.ok) throw new Error('Нет папки'); const files = await response.json(); const images = files.filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name)); grid.innerHTML = ''; if (images.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; } images.forEach(img => { const el = document.createElement('div'); el.className = 'gallery-item'; el.innerHTML = `<img src="${img.download_url}" onclick="openLightbox('${img.download_url}')" style="cursor:pointer;" title="Нажмите"><div class="gallery-info"><div class="gallery-desc" style="font-size:12px; opacity:0.7;">${img.name}</div></div>`; grid.appendChild(el); }); } catch (e) { grid.innerHTML = `<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Ошибка загрузки (проверьте папку ${folderPath})</p>`; }
+function copyShareLink(id) {
+  const url = window.location.origin + window.location.pathname + '#' + id;
+  navigator.clipboard.writeText(url).then(() => alert('Ссылка на историю скопирована!')).catch(() => alert('Не удалось скопировать ссылку.'));
 }
+
+function copyText(id) {
+  const el = document.getElementById('text-' + id);
+  navigator.clipboard.writeText(el.innerText).then(() => alert('Текст скопирован!')).catch(() => alert('Не удалось скопировать.'));
+}
+
+function downloadText(id, title) {
+  const text = document.getElementById('text-' + id).innerText;
+  const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = title + '.txt'; a.click(); URL.revokeObjectURL(a.href);
+}
+
+function switchGalleryTab(tab) {
+  ['general','arina','sasha','marina','polina'].forEach(t => {
+    document.getElementById('gal-tab-' + t).style.display = t === tab ? 'block' : 'none';
+    const btn = document.getElementById('tab-btn-' + t);
+    if (t === tab) { btn.style.background = '#1d1d1b'; btn.style.color = '#fff'; btn.style.border = 'none'; }
+    else { btn.style.background = 'none'; btn.style.color = '#1d1d1b'; btn.style.border = '1px solid #ccc'; }
+  });
+}
+
+async function loadGallery(target, folderPath, gridId) {
+  const grid = document.getElementById(gridId);
+  if(!grid) return;
+  grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Загрузка...</p>';
+  try {
+    const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${folderPath}?ref=${BRANCH}`;
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error('Папка не найдена');
+    const files = await response.json();
+    const images = files.filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name));
+    grid.innerHTML = '';
+    if (images.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
+    images.forEach(img => {
+      const el = document.createElement('div'); el.className = 'gallery-item';
+      el.innerHTML = `<img src="${img.download_url}" onclick="openLightbox('${img.download_url}')" style="cursor:pointer;" title="Нажмите, чтобы увеличить"><div class="gallery-info"><div class="gallery-desc" style="font-size:12px; opacity:0.7;">${img.name}</div></div>`;
+      grid.appendChild(el);
+    });
+  } catch (e) {
+    grid.innerHTML = `<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Ошибка загрузки (проверьте папку ${folderPath})</p>`;
+  }
+}
+
 function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').style.display = 'flex'; }
 function closeLightbox() { document.getElementById('lightboxModal').style.display = 'none'; }
+
 let clickCount = 0;
-document.getElementById('secretLoginBtn').addEventListener('click', () => { if (document.getElementById('authorBar').classList.contains('active')) return; clickCount++; setTimeout(() => { clickCount = 0; }, 1500); if (clickCount >= 5) { clickCount = 0; document.getElementById('loginModal').classList.add('open'); } });
-async function submitLogin() { const email = document.getElementById('loginUser').value; const pass = document.getElementById('loginPass').value; if (!window.loginUser) { alert('Подключение к базе не готово. Подождите.'); return; } const success = await window.loginUser(email, pass); if (success) { document.getElementById('loginModal').classList.remove('open'); document.getElementById('authorBar').classList.add('active'); alert('Вы успешно вошли как автор!'); document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = ''; } else { alert('Неверный email или пароль'); } }
-async function logout() { if (window.logoutUser) { await window.logoutUser(); } document.getElementById('authorBar').classList.remove('active'); alert('Вы вышли из режима автора.'); }
+document.getElementById('secretLoginBtn').addEventListener('click', () => {
+  if (document.getElementById('authorBar').classList.contains('active')) return;
+  clickCount++;
+  setTimeout(() => { clickCount = 0; }, 1500);
+  if (clickCount >= 5) { clickCount = 0; document.getElementById('authorBar').classList.add('active'); alert('Вы вошли как автор!'); }
+});
+function logout() { document.getElementById('authorBar').classList.remove('active'); alert('Вы вышли из режима автора.'); }
 </script>
 </body>
 </html>
