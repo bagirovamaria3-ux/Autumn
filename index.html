@@ -145,6 +145,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 <body data-theme="light">
 
 <div id="reading-progress"></div>
+
 <div class="theme-selector-overlay" id="themeSelector">
   <div class="theme-title">AUTUMN</div>
   <div class="theme-question">Какую осень вы предпочитаете?</div>
@@ -252,11 +253,6 @@ input,select,textarea{ font-family: 'Lora', serif; }
   </div>
 </div>
 
-<div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
-  <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
-</div>
-<script>
-   <!-- Модальное окно для входа -->
 <div class="modal" id="loginModal">
   <div class="modal-card">
     <h3 style="font-family:'Lora'; margin-bottom:15px;">Вход для автора</h3>
@@ -273,6 +269,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
       <button class="btn btn-dark" onclick="submitLogin()" style="padding:10px 20px; border-radius:6px; border:none; background:#1d1d1b; color:#fff; font-weight:600;">Войти</button>
     </div>
   </div>
+</div>
+
+<div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
 </div>
 
 <script type="module">
@@ -303,7 +303,6 @@ input,select,textarea{ font-family: 'Lora', serif; }
     onAuthStateChanged(auth, user => callback(!!user)); 
   };
 </script>
-
 <script>
 // НАСТРОЙКИ GITHUB
 const GITHUB_USER = "bagirovamaria3-ux";
