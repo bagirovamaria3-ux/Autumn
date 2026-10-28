@@ -106,7 +106,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 [data-theme="dark"] .spider { color: #aaa; }
 
 /* КНОПКА НАВЕРХ */
-#backToTop { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 20px; display: none; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.3); align-items: center; justify-content: center; }
+#backToTop { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #c8a96a; color: #fff; border: none; font-size: 20px; display: none; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.3); align-items: center; justify-content: center; }
 
 /* МОДАЛКИ */
 .modal { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; padding: 20px; }
@@ -139,10 +139,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
   #backToTop { bottom: 80px; }
 }
 </style>
+  
 </head>
 <body data-theme="light">
-
-<div class="theme-selector-overlay" id="themeSelector">
+  <div class="theme-selector-overlay" id="themeSelector">
   <div class="theme-title">AUTUMN</div>
   <div class="theme-question">Какую осень вы предпочитаете?</div>
   <div class="theme-buttons">
@@ -199,10 +199,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
       <button id="tab-btn-arina" onclick="switchGalleryTab('arina')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Арина</button>
       <button id="tab-btn-sasha" onclick="switchGalleryTab('sasha')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Сашурка</button>
       <button id="tab-btn-marina" onclick="switchGalleryTab('marina')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Марина</button>
+      <button id="tab-btn-polina" onclick="switchGalleryTab('polina')" style="background:none; border:1px solid #ccc; padding:10px 20px; border-radius:6px; cursor:pointer; color:#1d1d1b;">Полина</button>
     </div>
 
     <div id="gal-tab-general">
-      <button class="nav-btn" id="addGeneralBtn" style="display:none; margin-bottom:20px;" onclick="openGalleryModal('general')">+ Добавить фото</button>
       <div class="gallery-grid" id="galleryGrid"></div>
     </div>
     <div id="gal-tab-arina" style="display:none;">
@@ -211,69 +211,43 @@ input,select,textarea{ font-family: 'Lora', serif; }
         <p>У меня ОКР, я долго его боялась. Наконец-то я нашла в себе силы смело об этом говорить, показывать людям свои работы. Я надеюсь своим творчеством дотянуться до человека, которому могут помочь мои картинки.</p>
         <p>Выход есть всегда. Пожалуйста, помните об этом.</p>
       </div>
-      <button class="nav-btn" id="addArinaBtn" style="display:none; margin-bottom:20px;" onclick="openGalleryModal('arina')">+ Добавить рисунок</button>
       <div class="gallery-grid" id="galleryGridArina"></div>
     </div>
     <div id="gal-tab-sasha" style="display:none;">
       <div style="background:#fdf2ea; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#4a2316;">
         <p>Здесь будут фотографии и работы Сашурки. Описание можно будет добавить позже.</p>
       </div>
-      <button class="nav-btn" id="addSashaBtn" style="display:none; margin-bottom:20px;" onclick="openGalleryModal('sasha')">+ Добавить фото</button>
       <div class="gallery-grid" id="galleryGridSasha"></div>
     </div>
     <div id="gal-tab-marina" style="display:none;">
       <div style="background:#eef5ee; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#1b3324;">
         <p>Здесь будут фотографии Марины. Описание можно будет добавить позже.</p>
       </div>
-      <button class="nav-btn" id="addMarinaBtn" style="display:none; margin-bottom:20px;" onclick="openGalleryModal('marina')">+ Добавить фото</button>
       <div class="gallery-grid" id="galleryGridMarina"></div>
+    </div>
+    <div id="gal-tab-polina" style="display:none;">
+      <div style="background:#fdf2ea; padding:30px; border-radius:12px; margin-bottom:30px; font-family:'Lora', serif; font-size:18px; line-height:1.8; color:#4a2316;">
+        <p>Иллюстрации к истории «Ужин всегда мог быть таким».</p>
+        <p><a href="#story-2" onclick="showMain()" style="color:#b85a3a; text-decoration:underline; font-weight:bold;">← Читать историю Полины</a></p>
+      </div>
+      <div class="gallery-grid" id="galleryGridPolina"></div>
     </div>
   </div>
 </section>
 
-<div class="modal" id="loginModal">
-  <div class="modal-card">
-    <h3 style="font-family:'Lora'; margin-bottom:15px;">Вход для автора</h3>
-    <div class="field"><label>Email</label><input id="loginUser" type="email"></div>
-    <div class="field"><label>Пароль</label><input id="loginPass" type="password"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="document.getElementById('loginModal').classList.remove('open')">Отмена</button>
-      <button class="btn btn-dark" onclick="submitLogin()">Войти</button>
-    </div>
-  </div>
-</div>
+<!-- Модалки оставляем как были -->
+<div class="modal" id="loginModal"><div class="modal-card"><h3>Вход</h3><div class="field"><label>Email</label><input id="loginUser" type="email"></div><div class="field"><label>Пароль</label><input id="loginPass" type="password"></div><div class="modal-actions"><button class="btn btn-ghost" onclick="document.getElementById('loginModal').classList.remove('open')">Отмена</button><button class="btn btn-dark" onclick="submitLogin()">Войти</button></div></div></div>
+<div class="modal" id="helpModal"><div class="modal-card"><h3>Как пользоваться</h3><p>Листайте вниз, чтобы читать. В галерее смотрите фото.</p><div class="modal-actions"><button class="btn btn-dark" onclick="document.getElementById('helpModal').classList.remove('open')">Понятно</button></div></div></div>
 
-<div class="modal" id="galleryModal">
-  <div class="modal-card">
-    <h3 style="font-family:'Lora'; margin-bottom:15px;">Добавить фото</h3>
-    <div class="field"><label>Фото</label><input type="file" id="galImage" accept="image/*"></div>
-    <div class="field"><label>Автор (или подпись)</label><input type="text" id="galAuthor"></div>
-    <div class="field"><label>Описание</label><input type="text" id="galDesc"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="document.getElementById('galleryModal').classList.remove('open')">Отмена</button>
-      <button class="btn btn-dark" onclick="saveGalleryItem()">Добавить</button>
-    </div>
-  </div>
+<div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
 </div>
-
-<div class="modal" id="helpModal">
-  <div class="modal-card">
-    <h3 style="font-family:'Lora'; margin-bottom:15px;">Как пользоваться журналом</h3>
-    <div style="font-size:15px; line-height:1.6; margin-bottom:15px;">
-      <p style="margin-bottom:10px;"><b>🌓 Смена темы</b> — нажмите на иконку смены темы в правом верхнем углу, чтобы переключить день/ночь.</p>
-      <p style="margin-bottom:10px;"><b>🍂 Фон</b> — кнопка «Фон» переключает листья, паучков и чистый фон.</p>
-      <p style="margin-bottom:10px;"><b>🖼️ Галерея</b> — здесь вы можете посмотреть фотографии и работы авторов.</p>
-      <p style="margin-bottom:10px;"><b>📖 Тексты</b> — просто листайте вниз, чтобы читать статьи.</p>
-      <p style="margin-bottom:10px;"><b>💾 Скачать</b> — под заголовком каждой статьи есть кнопка, чтобы сохранить текст в заметки.</p>
-      <p style="margin-bottom:10px;"><b>📋 Копировать</b> — рядом с кнопкой скачивания можно скопировать весь текст статьи.</p>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-dark" onclick="document.getElementById('helpModal').classList.remove('open')">Понятно</button>
-    </div>
-  </div>
-</div>
-
 <script>
+// НАСТРОЙКИ GITHUB (Твой репозиторий)
+const GITHUB_USER = "bagirovamaria3-ux";
+const REPO_NAME = "Autumn";
+const BRANCH = "main"; 
+
 // ВАШИ ТЕКСТЫ (ВСЕ СОХРАНЕНЫ)
 const storiesData = [
   { id: "story-intro", title: "Вступительное слово", kicker: "От редакции · Мариша", themeClass: "bg-myrte", text: "Если бы я могла прийти в терапию с одним-единственным вопросом, я бы, наверное, заставила терапевта философствовать со мной о тёмной ночи души.\n\nВчера мы ехали большой компанией в машине по длинной-длинной трассе. Время близилось к шести вечера, а тьма накрыла такая, будто уже одиннадцать.\n\n— А это ещё два месяца до полного погружения во тьму! — с удивлением и тоской озвучил кто-то мои мысли.\n\nНо меня это скорее обрадовало, чем огорчило. В отличие от большинства любителей лета, я всё-таки очень люблю позднюю осень. Особенно ноябрь. В этом месяце я чувствую самое сильное переживание влюблённости. Для меня он скорее экзаменующий: проверяет, сколько тепла и света удалось накопить за полгода, и задаёт много вопросов.\n\nИз года в год пытаюсь. Иногда получается. В этом году я решаюсь выпустить свой первый журнал. Гранатовым, с капелькой изумруда, текстам. Надеюсь, что капельку этой настойки вы возьмёте с собой на весь будущий год.", image: null },
@@ -288,59 +262,26 @@ const storiesData = [
   { id: "story-new-1", title: "Картина маслом", kicker: "Spice · загадочная барышня", themeClass: "bg-spice", text: "Короче, ситуация такая. Познакомилась я с одним чуваком в дейтинг-приложении. Очень прикольный, красивый, высокий, светлоглазый — не знаю, как этот цвет называется, серо-голубой, что ли. Короче, симпатичный. Мы с ним сходили на свидание, болтали о том о сём, познакомились. Потом дело как-то перешло уже в горизонтальную плоскость.\n\nИ вот происходит — странно тебе такое рассказывать — короче, у меня происходит сайт. А конкретно, как это сказать по корректнее... происходит итинг пуссинг. И значит, в момент этого итинг пуссинга я чувствую, что он начинает как-то приостанавливаться. Я ему как бы намекаю: давай, продолжай. В общем, я типа — это очень странно рассказывать, ладно. Смотрю: несмотря на это, он продолжает. И после того как, собственно, я осталась довольна, он поднимает лицо — и я вижу картину маслом. Мои ноги — вот такие. Он поднимает лицо, а оно у него, блять, всё красное в крови. Пиздец. Я охуела. Сказать, что я охуела, — ничего не сказать. Потому что, блять, как это вообще может быть?\n\nИ он поднимает это лицо и говорит: «Is it you are or it's me?» (Это у тебя или у меня?) И я такая — блять, думаю, судорожно вспоминаю, когда у меня должны прийти месячные. Понимаю, что не скоро. Потом мы начинаем выяснять: у него, оказывается, тонкие сосуды в носу, и иногда у него в целом происходит непроизвольное кровотечение из носа. И, блять, это кровотечение произошло именно в момент канилингуса. Короче, блять, это было очень страшно. Ну то есть по сути у него кровь пошла из носа в середине процесса, но, как бы, этот джентльмен довёл дело до конца.\n\nАвтор: загадочная барышня", image: null },
   { id: "story-new-2", title: "Хорошая Девочка", kicker: "Spice · История · Звезда Моя Далекая", themeClass: "bg-spice", text: "Всё это время, что я веду блог, я недоговаривала. Я была не совсем честна. С вами, и со своим мужем. И это давит на меня. Честность - одна из моих ценностей. Я хочу честно транслировать то, что происходит в моей жизни, поверьте, вы бы удивились и просмотры моих видео взлетели бы до небес. Там была бы вся правда о моей жизни, о большом страхе, и чувстве вины и стыда, о желании быть удобной, о диком чувстве одиночества, об обидах и не способности справляться с проблемами, об изменах, о переменах в сознании. Там было бы то, что возможно повергло бы вас в шок, а моего мужа заставило бы думать, что я последняя тварь на земле, что есть не так. Но я не могу, я боюсь, и это давит на меня бетонной стеной.\n\nС другой стороны я стараюсь вести блог, и подбираю темы, которые не всем заходят; и вижу, как мои видео пролетают мимо. А это значит, что людям не интересно, и тогда я задаюсь вопросом «зачем всё это» и хочется все бросить. Но бросить не могу, потому что мне нравится проявляться в соцсетях. Это уже привычка. Эта привычка, возможно ведущая в никуда. И это ещё одна бетонная стена, давящая с другой стороны. И вот я пишу об этом, чтобы хотя бы как-то облегчить этот груз и возможно заставить мозг поверить, что я так проявилась. Возможно я это когда-то опубликую, честно очень хочется делиться этим. А возможно и не опубликую. И это будут просто мемуары для себя.\n\nВ 2010-м году я познакомилась со своим будущим мужем. Я была очень глупенькая в плане отношений. У меня было очень мало опыта. А ещё у меня была очень контролирующая мать, которая изводила своими звонками и страхами за меня. Это все выливалось в скандалы. Я изо всех сил пыталась быть для неё хорошей девочкой. Всю жизнь. И даже когда стала взрослой. Одна моя часть пыталась. Другая моя часть пыталась пойти по контр сценарию. Травка, секс (Слава богу осознанный, только с теми, с кем действительно хотелось), легкие наркотики. Хорошей девочки конечно было больше. Она победила. Она закончила универ на отлично с красным дипломом. Потому что ей надо было доказать, что мать со своими страхами была неправа. Она пошла работать в школу. Но её было настолько много, что она вошла даже в мои отношения. Даже когда я встретила будущего мужа, хорошая девочка делала так, чтобы её взяли замуж. Просто потому что мама воспитала так, что нужно вырасти и обязательно выйти замуж! Это желание было настолько сильным, что даже тогда, когда после некоторого периода отношений с будущим мужем, я говорила себе и подругам, что мой идеал лопается как пузырь, я разочаровываюсь в человеке, эта хорошая девочка верила, что моей любви хватит на нас обоих и я смогу его изменить. Я делала всё, чтобы заслужить любовь. При первом звонке от него бежала домой, чтобы тупо разогреть ему суп в микроволновке, делала минет, не получая наслаждения в ответ; в наших ссорах признавала, что я преувеличиваю, и заставляла себя верить в то, что это моя реакция неправильная, что ничего такого серьезного не произошло. При всем при этом я чувствовала что мне некомфортно в этих отношениях, но я думала, что проблема во мне, и что так и должно быть. Я не знала, как можно по-другому… и даже на попытки моей сестры открыть мне глаза на его манипуляции и газлайтинг, я говорила, что они ничего не понимают, преувеличивают, и вообще нет никакой проблемы. Все скоро станет хорошо. Но хорошо не становилось. Шли месяцы, годы. Моя хорошая девочка верила, что вот вот и всё будет легко и я получу то, чего мне так не хватает: заботу, искреннюю любовь и ласку. Но то, что я получала было внешне похоже на вышеперечисленное, но внутри было всё то же ощущение, что вот как будто не достаточно. Внутри уже зарождался маленький страх сделать что-то не так, что я потом буду в чем-то виновата… на пустом месте.\n\n2012 год. Мы играем свадьбу. А сразу после неё я получаю «мнение» мужа, что мне пора бы оставить танцы, потому что непозволительно замужней женщине танцевать в ресторанах на глазах у кучи мужиков. Далее шли ограничения в плане одежды, что можно, а что нет одевать на работу в жаркий день. И идти на корпоратив по случаю дня рождения директора компании, помощником которого я являлась, а также организатором этого самого корпоратива, мне нельзя, это неправильно. Тут начались первые попытки изменить моё мышление мною же, я начала себя ломать, сама! Раз муж сказал неправильно, значит мне надо придумать что-то, чтобы не идти на корпоратив. Началось вранье, не знаю на сколько чистое. Под предлогом, что папа после операции я не поехала на корпоратив, но поехала домой на Палатку, к родителям. Они конечно были рады. Но у меня внутри был раздрай. Я не понимала, что я чувствую по поводу этой ситуации и этого моего поступка. Вроде правильно, а вроде не то, что хотела я. Дальше началось само убеждение по поводу «негоже замужней женщине танцевать в ресторанах» и мне стыдно было говорить об этом моему хореографу. И я придумала, что хорошей вполне легальной отмазкой будет забеременеть. И я забеременела. Конечно, Я радовалась беременности., но не осознанно. Я радовалась, потому что так надо. Так воспитывали. Мы же рождены чтобы создавать семью и рожать потомство. У нас получилась прекрасная девочка. За это я благодарна мужу! Когда родилась Милана, я думала, что вот наверно сейчас начнется та самая волшебная жизнь, о которой я мечтала, а именно я буду получать ту самую любовь, которую я желала. Я же родила ему дочку! Я заслуживаю отношения как к богине! Но этого опять не происходило… после выписки мы приехали домой с ребенком, а там даже постелька для него не была застелена. Там не готовились к моему возвращению. А в голове у меня было все как в идеальной картинке: шарики, торт, подарок, красивая спальня с кроваткой. Разочарование. Но я даже не выразила это. Не понимала, можно ли мне возмущаться по этому поводу…Или опять я себе надумываю. Я даже где-то в голове придумала мужу оправдание: он работал, зарабатывал деньги на нашу жизнь.\n\nВот и во время декрета он нашел себе ещё одну работу, но дома особо помощи не было. И я не возмущалась, я верила (или пыталась себя заставить верить), что так надо. Приятные моменты, конечно были, он купил мне кольцо с бриллиантом, абонемент в фитнес студию. Но бегала я туда в диком страхе и напряге: мне давали строго определенное время, и если я не укладывалась в него, это была проблема, потому что его дела были важнее, чем мой фитнес. Однажды мне даже в упрек прилетело: нефиг было жиреть… И наверное впервые в жизни я позволила себе постоять за себя: я врезала ему пощёчину за эти слова. Но это было единственный раз. И после этого случая, мне кажется, я испугалась сама себя, ведь меня так не воспитывали. От меня ожидали быть хорошей, и я только что «совершила ошибку». И по правилам теперь мне нужно было заглаживать вину и стараться быть хорошей ещё больше, чтобы вернуть доверие. Вот так я собственноручно начала план по уничтожению моей личности.\n\nИ здесь надо остановиться и сказать: хорошо, что это всё было. Нет, конечно, в идеале лучше бы этого вообще ничего не было, но сейчас глядя на это всё с момента ЗДЕСЬ и СЕЙЧАС, я могу сказать, что теперь я знаю, КАК мне НЕ НРАВИТСЯ, и что в своей жизни я терпеть не буду. У меня есть дочь, и я знаю, КАК я НЕ БУДУ её воспитывать. Жаль только, что для этого мне понадобилось целых полжизни…\n\nПродолжение следует…", image: null }
 ];
-</script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCMs9xM3Fw9BGaHaexA2RZWtUykTZUmo8Y",
-    authDomain: "autumn-6f900.firebaseapp.com",
-    projectId: "autumn-6f900",
-    storageBucket: "autumn-6f900.firebasestorage.app",
-    messagingSenderId: "981004008233",
-    appId: "1:981004008233:web:6e2dc658ed3d0389a45538",
-    measurementId: "G-H7P6262R0R"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-
-  window.saveToCloud = async function(key, data) { try { await setDoc(doc(db, "autumn_data", key), { value: data }); } catch(e) {} };
-  window.loadFromCloud = async function(key) { try { const docSnap = await getDoc(doc(db, "autumn_data", key)); return docSnap.exists() ? docSnap.data().value : null; } catch(e) { return null; } };
-  window.loginUser = async function(email, pass) { try { await signInWithEmailAndPassword(auth, email, pass); return true; } catch (e) { return false; } };
-  window.logoutUser = async function() { try { await signOut(auth); } catch(e) {} };
-  window.checkAuthStatus = function(callback) { onAuthStateChanged(auth, user => callback(!!user)); };
-</script>
-
-<script>
-let isAuthor = false;
-let currentGalleryTarget = 'general';
-
+// Инициализация и рендер
 document.addEventListener("DOMContentLoaded", async function() {
   const savedTheme = localStorage.getItem('autumn_theme');
   if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
 
-  checkAuthStatus(function(loggedIn) {
-    if (loggedIn) { isAuthor = true; document.getElementById('authorBar').classList.add('active'); }
-  });
-
   renderStories(storiesData);
   initBackground();
-  updateViewCounter();
-  loadGallery('general', 'gallery_general', 'galleryGrid');
-  loadGallery('arina', 'gallery_arina', 'galleryGridArina');
-  loadGallery('sasha', 'gallery_sasha', 'galleryGridSasha');
-  loadGallery('marina', 'gallery_marina', 'galleryGridMarina');
+  
+  // Загружаем галереи
+  loadGallery('general', 'images/general', 'galleryGrid');
+  loadGallery('arina', 'images/arina', 'galleryGridArina');
+  loadGallery('sasha', 'images/sasha', 'galleryGridSasha');
+  loadGallery('marina', 'images/marina', 'galleryGridMarina');
+  loadGallery('polina', 'images/polina', 'galleryGridPolina');
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error', err)); });
-  }
+  document.getElementById('helpBtn').addEventListener('click', () => { document.getElementById('helpModal').classList.add('open'); });
 });
 
-// Курсор-листочек
+// КУРСОР-ЛИСТОЧЕК
 document.addEventListener('mousemove', (e) => {
   if (Math.random() > 0.15) return;
   const leaf = document.createElement('div');
@@ -358,39 +299,7 @@ window.addEventListener('scroll', () => {
   btn.style.display = window.scrollY > 500 ? 'flex' : 'none';
 });
 
-// Счетчик
-async function updateViewCounter() {
-  try {
-    const res = await fetch('https://api.countapi.xyz/hit/autumn-magazine/view');
-    const data = await res.json();
-    document.getElementById('viewCount').innerText = data.value;
-  } catch(e) { document.getElementById('viewCount').innerText = "уже много"; }
-}
-
-// Вход
-let clickCount = 0;
-document.getElementById('secretLoginBtn').addEventListener('click', () => {
-  if (isAuthor) return;
-  clickCount++;
-  setTimeout(() => { clickCount = 0; }, 1500);
-  if (clickCount >= 5) { clickCount = 0; document.getElementById('loginModal').classList.add('open'); }
-});
-async function submitLogin() {
-  const u = document.getElementById('loginUser').value;
-  const p = document.getElementById('loginPass').value;
-  if (await loginUser(u, p)) {
-    isAuthor = true;
-    document.getElementById('loginModal').classList.remove('open');
-    document.getElementById('authorBar').classList.add('active');
-    alert('Вы вошли как автор!'); location.reload();
-  } else alert('Неверный пароль');
-}
-async function logout() { await logoutUser(); isAuthor = false; location.reload(); }
-
-// Помощь
-document.getElementById('helpBtn').addEventListener('click', () => { document.getElementById('helpModal').classList.add('open'); });
-
-// Статьи
+// Рендер статей
 function renderStories(stories) {
   const tocList = document.getElementById('tocList');
   const storiesContainer = document.getElementById('storiesContainer');
@@ -410,139 +319,49 @@ function renderStories(stories) {
     if (story.themeClass === 'bg-spice' && !document.getElementById('spice-intro-box')) {
       introHtml = `<div id="spice-intro-box" class="spice-intro-box"><h3>Spice 18+</h3><p>Здесь собраны истории 18+, о тяжёлых жизненных обстоятельствах. О хихических и тяжёлых психических состояниях. Нежным котикам к прочтению не рекомендую, но сама я эти тексты люблю особенно сильно — за смелость автора, за нотку терпкого ромового яда в нашем осеннем эликсире и за Любовь во всех её смыслах.</p><p style="margin-top:10px;">Авторам — отдельное большое спасибо!</p></div>`;
     }
-    section.innerHTML = `<div class="container">${introHtml}<div class="story-kicker">${story.kicker}</div><div class="story-header"><h2 class="story-title">${story.title}</h2><div class="story-actions"><button onclick="copyText('${story.id}')" title="Скопировать">📋</button><button onclick="downloadText('${story.id}', '${story.title}')" title="Скачать">💾</button></div></div><div class="story-text" id="text-${story.id}">${formattedText}</div></div>`;
+    section.innerHTML = `<div class="container">${introHtml}<div class="story-kicker">${story.kicker}</div><div class="story-header"><h2 class="story-title">${story.title}</h2></div><div class="story-text" id="text-${story.id}">${formattedText}</div></div>`;
     storiesContainer.appendChild(section);
   });
 }
 
-function copyText(id) {
-  const el = document.getElementById('text-' + id);
-  navigator.clipboard.writeText(el.innerText).then(() => alert('Текст скопирован!')).catch(() => alert('Не удалось скопировать.'));
-}
-function downloadText(id, title) {
-  const text = document.getElementById('text-' + id).innerText;
-  const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = title + '.txt'; a.click(); URL.revokeObjectURL(a.href);
-}
-
-// Галерея
+// ГАЛЕРЕЯ
 function showGallery() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('gallerySection').classList.add('active'); switchGalleryTab('general'); window.scrollTo(0,0); }
 function showMain() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('gallerySection').classList.remove('active'); window.scrollTo(0,0); }
 
 function switchGalleryTab(tab) {
-  currentGalleryTarget = tab;
-  ['general','arina','sasha','marina'].forEach(t => {
+  ['general','arina','sasha','marina','polina'].forEach(t => {
     document.getElementById('gal-tab-' + t).style.display = t === tab ? 'block' : 'none';
     const btn = document.getElementById('tab-btn-' + t);
     if (t === tab) { btn.style.background = '#1d1d1b'; btn.style.color = '#fff'; btn.style.border = 'none'; }
     else { btn.style.background = 'none'; btn.style.color = '#1d1d1b'; btn.style.border = '1px solid #ccc'; }
-    if (isAuthor) document.getElementById('add' + t.charAt(0).toUpperCase() + t.slice(1) + 'Btn').style.display = t === tab ? 'inline-block' : 'none';
   });
 }
 
-function openGalleryModal(target) { currentGalleryTarget = target; document.getElementById('galleryModal').classList.add('open'); }
-
-// Сжатие фото
-function compressImage(file, maxWidth, maxHeight, quality) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = event => {
-      const img = new Image();
-      img.src = event.target.result;
-      img.onload = () => {
-        let width = img.width; let height = img.height;
-        if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
-        if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; }
-        const canvas = document.createElement('canvas');
-        canvas.width = width; canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      img.onerror = reject;
-    };
-    reader.onerror = reject;
-  });
-}
-
-async function saveGalleryItem() {
-  const fileInput = document.getElementById('galImage');
-  const author = document.getElementById('galAuthor').value;
-  const desc = document.getElementById('galDesc').value;
-  if (!fileInput.files || !fileInput.files[0]) { alert('Выберите фото'); return; }
+// ЗАГРУЗКА ФОТО ИЗ GITHUB
+async function loadGallery(target, folderPath, gridId) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Загрузка...</p>';
   
-  const saveBtn = document.querySelector('#galleryModal .btn-dark');
-  saveBtn.textContent = 'Загрузка...'; saveBtn.disabled = true;
-
   try {
-    const compressedSrc = await compressImage(fileInput.files[0], 1200, 1200, 0.8);
-    const formData = new FormData();
-    formData.append('file', dataURLtoBlob(compressedSrc), 'photo.jpg');
+    const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${folderPath}?ref=${BRANCH}`;
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error('Папка не найдена');
+    const files = await response.json();
     
-    const response = await fetch('https://postimages.org/json/rr', { method: 'POST', body: formData });
-    const result = await response.json();
-    if (!result.url) throw new Error("Хостинг не вернул ссылку");
+    // Фильтруем только картинки
+    const images = files.filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name));
     
-    const newItem = { src: result.url, author, desc };
-    let cloudKey = 'gallery_' + currentGalleryTarget;
-    let currentData = await loadFromCloud(cloudKey) || [];
-    currentData.push(newItem);
-    await saveToCloud(cloudKey, currentData);
-    
-    if (currentGalleryTarget === 'general') renderGeneralGallery(currentData);
-    if (currentGalleryTarget === 'arina') renderArinaGallery(currentData);
-    if (currentGalleryTarget === 'sasha') renderSashaGallery(currentData);
-    if (currentGalleryTarget === 'marina') renderMarinaGallery(currentData);
-    
-    document.getElementById('galleryModal').classList.remove('open');
-    document.getElementById('galImage').value = ''; document.getElementById('galAuthor').value = ''; document.getElementById('galDesc').value = '';
-  } catch (error) {
-    console.error(error); alert('Ошибка загрузки: ' + error.message);
-  } finally { saveBtn.textContent = 'Добавить'; saveBtn.disabled = false; }
-}
+    grid.innerHTML = '';
+    if (images.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
 
-function dataURLtoBlob(dataurl) {
-  var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-  while(n--){ u8arr[n] = bstr.charCodeAt(n); }
-  return new Blob([u8arr], {type:mime});
-}
-
-async function loadGallery(target, cloudKey, gridId) {
-  const data = await loadFromCloud(cloudKey) || [];
-  if (target === 'general') renderGeneralGallery(data);
-  if (target === 'arina') renderArinaGallery(data);
-  if (target === 'sasha') renderSashaGallery(data);
-  if (target === 'marina') renderMarinaGallery(data);
-}
-
-function renderGalleryGrid(gridId, data, target) {
-  const grid = document.getElementById(gridId); grid.innerHTML = '';
-  if (data.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
-  data.forEach((item, index) => {
-    const el = document.createElement('div'); el.className = 'gallery-item';
-    el.innerHTML = `<img src="${item.src}" onclick="openLightbox('${item.src}')" style="cursor:pointer;" title="Нажмите, чтобы увеличить"><div class="gallery-info"><div class="gallery-author">${item.author}</div><div class="gallery-desc">${item.desc}</div></div>${isAuthor ? `<button onclick="deleteGalleryItem(${index}, '${target}')" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); color:#fff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;">×</button>` : ''}`;
-    grid.appendChild(el);
-  });
-}
-
-function renderGeneralGallery(data) { renderGalleryGrid('galleryGrid', data, 'general'); }
-function renderArinaGallery(data) { renderGalleryGrid('galleryGridArina', data, 'arina'); }
-function renderSashaGallery(data) { renderGalleryGrid('galleryGridSasha', data, 'sasha'); }
-function renderMarinaGallery(data) { renderGalleryGrid('galleryGridMarina', data, 'marina'); }
-
-async function deleteGalleryItem(index, target) {
-  if (!confirm('Удалить это фото?')) return;
-  let cloudKey = 'gallery_' + target;
-  let data = await loadFromCloud(cloudKey) || [];
-  data.splice(index, 1);
-  await saveToCloud(cloudKey, data);
-  if (target === 'general') renderGeneralGallery(data);
-  if (target === 'arina') renderArinaGallery(data);
-  if (target === 'sasha') renderSashaGallery(data);
-  if (target === 'marina') renderMarinaGallery(data);
+    images.forEach(img => {
+      const el = document.createElement('div'); el.className = 'gallery-item';
+      el.innerHTML = `<img src="${img.download_url}" onclick="openLightbox('${img.download_url}')" style="cursor:pointer;" title="Нажмите, чтобы увеличить"><div class="gallery-info"><div class="gallery-desc" style="font-size:12px; opacity:0.7;">${img.name}</div></div>`;
+      grid.appendChild(el);
+    });
+  } catch (e) {
+    grid.innerHTML = `<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Ошибка загрузки (проверьте, есть ли папка ${folderPath} на GitHub)</p>`;
+  }
 }
 
 // Темы и фоны
@@ -564,21 +383,10 @@ function startBgAnimation() {
     el.style.left = Math.random() * 100 + 'vw'; const duration = 8 + Math.random() * 10; el.style.animationDuration = duration + 's'; el.style.animationDelay = -(Math.random() * duration) + 's'; el.style.fontSize = (16 + Math.random() * 16) + 'px'; bgContainer.appendChild(el);
   }
 }
-</script>
 
-<!-- Просмотр фото -->
-<div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
-  <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px; box-shadow: 0 0 50px rgba(0,0,0,0.5);">
-</div>
-
-<script>
-function openLightbox(src) {
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('lightboxModal').style.display = 'flex';
-}
-function closeLightbox() {
-  document.getElementById('lightboxModal').style.display = 'none';
-}
+// Лайтбокс
+function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').style.display = 'flex'; }
+function closeLightbox() { document.getElementById('lightboxModal').style.display = 'none'; }
 </script>
 </body>
 </html>
