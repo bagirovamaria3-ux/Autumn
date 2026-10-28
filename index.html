@@ -108,6 +108,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
 .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; }
 .btn-dark { background: #1d1d1b; color: #fff; }
+/* Кнопки в статьях */
+.story-actions { display: flex; gap: 10px; }
+.story-actions button { background: none; border: none; font-size: 20px; opacity: 0.5; transition: 0.2s; }
+.story-actions button:hover { opacity: 1; transform: scale(1.1); }
 
 @media (max-width: 768px) {
   .nav-btn { padding: 6px 10px; font-size: 10px; }
@@ -152,6 +156,9 @@ input,select,textarea{ font-family: 'Lora', serif; }
   <section class="toc-section">
     <div class="toc-container">
       <h2 class="toc-title">Содержание</h2>
+      <p style="text-align:center; font-family:'Montserrat',sans-serif; font-size:12px; color:#888; margin-bottom:30px;">
+        Журнал открыли <span id="viewCount">...</span> раз
+      </p>
       <div class="toc-list" id="tocList"></div>
     </div>
   </section>
@@ -211,6 +218,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
       <p style="margin-bottom:10px;"><b>🍂 Фон</b> — кнопка «Фон» переключает листья, паучков и чистый фон.</p>
       <p style="margin-bottom:10px;"><b>🖼️ Галерея</b> — здесь вы можете посмотреть фотографии и работы авторов.</p>
       <p style="margin-bottom:10px;"><b>📖 Тексты</b> — просто листайте вниз, чтобы читать статьи. Содержание находится в самом начале.</p>
+      <p style="margin-bottom:10px;"><b>💾 Скачать</b> — под заголовком каждой статьи есть кнопки, чтобы сохранить текст или скопировать его в заметки.</p>
       <p style="margin-bottom:10px;"><b>📱 Оффлайн</b> — сайт работает даже без интернета, если вы добавите его на главный экран телефона.</p>
     </div>
     <div class="modal-actions">
@@ -254,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   renderStories(storiesData);
   initBackground();
+  updateViewCounter();
   
   // Загружаем галереи из папок на GitHub
   loadGallery('general', 'images/general', 'galleryGrid');
@@ -262,6 +271,15 @@ document.addEventListener("DOMContentLoaded", function() {
   loadGallery('marina', 'images/marina', 'galleryGridMarina');
   loadGallery('polina', 'images/polina', 'galleryGridPolina');
 });
+
+// Счетчик просмотров
+async function updateViewCounter() {
+  try {
+    const res = await fetch('https://api.countapi.xyz/hit/autumn-magazine/view');
+    const data = await res.json();
+    document.getElementById('viewCount').innerText = data.value;
+  } catch(e) { document.getElementById('viewCount').innerText = "уже много"; }
+}
 
 // КУРСОР-ЛИСТОЧЕК
 document.addEventListener('mousemove', (e) => {
@@ -309,9 +327,20 @@ function renderStories(stories) {
     if (story.themeClass === 'bg-spice' && !document.getElementById('spice-intro-box')) {
       introHtml = `<div id="spice-intro-box" class="spice-intro-box"><h3>Spice 18+</h3><p>Здесь собраны истории 18+, о тяжёлых жизненных обстоятельствах. О хихических и тяжёлых психических состояниях. Нежным котикам к прочтению не рекомендую, но сама я эти тексты люблю особенно сильно — за смелость автора, за нотку терпкого ромового яда в нашем осеннем эликсире и за Любовь во всех её смыслах.</p><p style="margin-top:10px;">Авторам — отдельное большое спасибо!</p></div>`;
     }
-    section.innerHTML = `<div class="container">${introHtml}<div class="story-kicker">${story.kicker}</div><div class="story-header"><h2 class="story-title">${story.title}</h2></div><div class="story-text" id="text-${story.id}">${formattedText}</div></div>`;
+    section.innerHTML = `<div class="container">${introHtml}<div class="story-kicker">${story.kicker}</div><div class="story-header"><h2 class="story-title">${story.title}</h2><div class="story-actions"><button onclick="copyText('${story.id}')" title="Скопировать">📋</button><button onclick="downloadText('${story.id}', '${story.title}')" title="Скачать">💾</button></div></div><div class="story-text" id="text-${story.id}">${formattedText}</div></div>`;
     storiesContainer.appendChild(section);
   });
+}
+
+function copyText(id) {
+  const el = document.getElementById('text-' + id);
+  navigator.clipboard.writeText(el.innerText).then(() => alert('Текст скопирован!')).catch(() => alert('Не удалось скопировать.'));
+}
+function downloadText(id, title) {
+  const text = document.getElementById('text-' + id).innerText;
+  const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = title + '.txt'; a.click(); URL.revokeObjectURL(a.href);
 }
 
 // ГАЛЕРЕЯ
