@@ -513,15 +513,47 @@ function openGalleryModal(target) {
   document.getElementById('galleryModal').classList.add('open'); 
 }
 
+// Функция сжатия фото
+function compressImage(file, maxWidth, maxHeight, quality) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = event => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
+        if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality)); // Сжимаем в JPEG
+      };
+      img.onerror = reject;
+    };
+    reader.onerror = reject;
+  });
+}
+
 async function saveGalleryItem() {
   const fileInput = document.getElementById('galImage');
   const author = document.getElementById('galAuthor').value;
   const desc = document.getElementById('galDesc').value;
   if (!fileInput.files || !fileInput.files[0]) { alert('Выберите фото'); return; }
   
-  const reader = new FileReader();
-  reader.onload = async function(e) {
-    const newItem = { src: e.target.result, author, desc };
+  // Показываем, что идет загрузка
+  const saveBtn = document.querySelector('#galleryModal .btn-dark');
+  saveBtn.textContent = 'Сжатие и загрузка...';
+  saveBtn.disabled = true;
+
+  try {
+    // Сжимаем фото до максимум 1200px по ширине/высоте
+    const compressedSrc = await compressImage(fileInput.files[0], 1200, 1200, 0.7);
+    
+    const newItem = { src: compressedSrc, author, desc };
     let cloudKey = 'gallery_' + currentGalleryTarget;
     
     let currentData = await loadFromCloud(cloudKey) || [];
@@ -537,8 +569,12 @@ async function saveGalleryItem() {
     document.getElementById('galImage').value = '';
     document.getElementById('galAuthor').value = '';
     document.getElementById('galDesc').value = '';
-  };
-  reader.readAsDataURL(fileInput.files[0]);
+  } catch (error) {
+    alert('Ошибка при загрузке: ' + error.message);
+  } finally {
+    saveBtn.textContent = 'Добавить';
+    saveBtn.disabled = false;
+  }
 }
 
 async function loadGallery(target, cloudKey, gridId) {
