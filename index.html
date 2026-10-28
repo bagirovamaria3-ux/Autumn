@@ -7,13 +7,16 @@
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root { --bg-main: #fcf9f2; --text-main: #2c2a27; --text-muted: #6b665f; --border: #e6decb; --c-cover-bg: #1c1b19; --c-cover-text: #e8dcc8; }
-[data-theme="dark"] { --bg-main: #121212; --text-main: #e0dcd5; --text-muted: #9a958f; --border: #33312e; --c-cover-bg: #050505; --c-cover-text: #d4c9b8; }
+:root { --bg-main: #fcf9f2; --text-main: #2c2a27; --text-muted: #6b665f; --border: #e6decb; --c-cover-bg: #1c1b19; --c-cover-text: #e8dcc8; --accent: #c8a96a; }
+[data-theme="dark"] { --bg-main: #121212; --text-main: #e0dcd5; --text-muted: #9a958f; --border: #33312e; --c-cover-bg: #050505; --c-cover-text: #d4c9b8; --accent: #b88a44; }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background-color: var(--bg-main); color: var(--text-main); font-family: 'Lora', Georgia, serif; line-height: 1.7; transition: background-color 0.4s, color 0.4s; overflow-x: hidden; scroll-behavior: smooth;}
 h1,h2,h3,h4{ font-weight: 600; line-height: 1.2; }
 button{ cursor: pointer; font-family: 'Montserrat', sans-serif; }
 input,select,textarea{ font-family: 'Lora', serif; }
+
+/* ИНДИКАТОР ЧТЕНИЯ */
+#reading-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1000; width: 0%; transition: width 0.1s; }
 
 /* ЭКРАН ВЫБОРА ТЕМЫ */
 .theme-selector-overlay { position: fixed; inset: 0; z-index: 1000; background: #1c1b19; color: #e8dcc8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
@@ -28,7 +31,13 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .brand { font-family: 'Cinzel Decorative', serif; font-size: 24px; color: var(--text-main); cursor: pointer; user-select: none; }
 .nav-links { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
 .nav-btn { background: none; border: 1px solid var(--border); border-radius: 50px; padding: 8px 16px; color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
+.nav-btn:hover { background: var(--border); }
 .theme-toggle { background: var(--border); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; color: var(--text-main); }
+
+/* ПАНЕЛЬ АВТОРА */
+.author-bar { position: fixed; top: 70px; right: 20px; z-index: 200; display: none; flex-direction: column; gap: 10px; background: var(--border); padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-family: 'Montserrat', sans-serif; }
+.author-bar.active { display: flex; }
+.author-bar button { padding: 8px 12px; border: none; border-radius: 6px; background: #1d1d1b; color: #fff; font-size: 12px; }
 
 /* ОБЛОЖКА */
 .cover-section { min-height: 100vh; background-color: var(--c-cover-bg); color: var(--c-cover-text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
@@ -40,14 +49,15 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .toc-container { max-width: 800px; margin: 0 auto; }
 .toc-title { font-family: 'Cinzel Decorative', serif; font-size: 32px; margin-bottom: 20px; color: var(--text-main); text-align: center; }
 .toc-list { display: flex; flex-direction: column; gap: 15px; }
-.toc-item { display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--text-main); padding: 15px 20px; border-radius: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--border); transition: 0.3s; }
-.toc-item:hover { transform: translateX(5px); }
+.toc-item { display: flex; align-items: center; gap: 20px; text-decoration: none; color: var(--text-main); padding: 15px 20px; border-radius: 12px; background: rgba(0,0,0,0.03); border: 1px solid var(--border); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.toc-item:hover { transform: translateX(8px) scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 .toc-color-dot { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
 .toc-item-title { font-size: 18px; font-weight: 600; display: block; margin-bottom: 4px; }
 .toc-item-author { font-size: 12px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; color: var(--text-muted); display: block; }
 
 /* СТАТЬИ */
-.story-section { padding: 80px 20px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; }
+.story-section { padding: 80px 20px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.story-section.visible { opacity: 1; transform: translateY(0); }
 .container { max-width: 800px; margin: 0 auto; }
 .story-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
 .story-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 15px; opacity: 0.8; }
@@ -81,7 +91,8 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .gallery-section { display: none; padding: 100px 20px; background: var(--bg-main); min-height: 100vh; }
 .gallery-section.active { display: block; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
-.gallery-item { background: #1a1817; border-radius: 12px; overflow: hidden; color: #e8dcc8; position: relative; }
+.gallery-item { background: #1a1817; border-radius: 12px; overflow: hidden; color: #e8dcc8; position: relative; transition: transform 0.3s; }
+.gallery-item:hover { transform: scale(1.02); }
 .gallery-item img { width: 100%; height: 250px; object-fit: cover; display: block; transition: 0.3s; }
 .gallery-item img:hover { opacity: 0.8; }
 .gallery-info { padding: 15px; }
@@ -99,7 +110,8 @@ input,select,textarea{ font-family: 'Lora', serif; }
 [data-theme="dark"] .spider { color: #aaa; }
 
 /* КНОПКА НАВЕРХ */
-#backToTop { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #c8a96a; color: #fff; border: none; font-size: 20px; display: none; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.3); align-items: center; justify-content: center; }
+#backToTop { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 20px; display: flex; opacity: 0; pointer-events: none; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.3); align-items: center; justify-content: center; transition: all 0.3s; transform: translateY(20px); }
+#backToTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
 /* МОДАЛКИ И ЛАЙТБОКС */
 .modal { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; padding: 20px; }
@@ -120,12 +132,20 @@ input,select,textarea{ font-family: 'Lora', serif; }
   .story-title { font-size: 24px; }
   .story-text { font-size: 17px; }
   .story-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+  .author-bar { top: auto; bottom: 80px; right: 20px; left: 20px; }
   #backToTop { bottom: 80px; }
+}
+@media print {
+  .top-nav, .author-bar, #backToTop, .bg-animation-container, .theme-selector-overlay, .modal { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .story-section { page-break-inside: avoid; border: none; opacity: 1 !important; transform: none !important; }
 }
 </style>
 </head>
 <body data-theme="light">
-  <div class="theme-selector-overlay" id="themeSelector">
+
+<div id="reading-progress"></div>
+<div class="theme-selector-overlay" id="themeSelector">
   <div class="theme-title">AUTUMN</div>
   <div class="theme-question">Какую осень вы предпочитаете?</div>
   <div class="theme-buttons">
@@ -137,7 +157,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 <div class="bg-animation-container" id="bgAnimation"></div>
 
 <nav class="top-nav">
-  <div class="brand">AUTUMN</div>
+  <div class="brand" id="secretLoginBtn">AUTUMN</div>
   <div class="nav-links">
     <button class="nav-btn" id="bgBtn" onclick="toggleBackground()">Фон: 🍂</button>
     <button class="nav-btn" onclick="showGallery()">Галерея 🖼️</button>
@@ -145,6 +165,12 @@ input,select,textarea{ font-family: 'Lora', serif; }
     <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
   </div>
 </nav>
+
+<div class="author-bar" id="authorBar">
+  <h4>Режим автора</h4>
+  <button onclick="window.print()">📄 Экспорт в PDF</button>
+  <button onclick="logout()">Выйти</button>
+</div>
 
 <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
@@ -164,7 +190,6 @@ input,select,textarea{ font-family: 'Lora', serif; }
   </section>
   <div id="storiesContainer"></div>
 </main>
-
 <section class="gallery-section" id="gallerySection">
   <div class="container">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:15px;">
@@ -218,7 +243,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
       <p style="margin-bottom:10px;"><b>🍂 Фон</b> — кнопка «Фон» переключает листья, паучков и чистый фон.</p>
       <p style="margin-bottom:10px;"><b>🖼️ Галерея</b> — здесь вы можете посмотреть фотографии и работы авторов.</p>
       <p style="margin-bottom:10px;"><b>📖 Тексты</b> — просто листайте вниз, чтобы читать статьи. Содержание находится в самом начале.</p>
-      <p style="margin-bottom:10px;"><b>💾 Скачать</b> — под заголовком каждой статьи есть кнопки, чтобы сохранить текст или скопировать его в заметки.</p>
+      <p style="margin-bottom:10px;"><b>💾 Скачать / 🔗 Поделиться</b> — под заголовком каждой статьи есть кнопки, чтобы сохранить текст, скопировать его или поделиться ссылкой.</p>
       <p style="margin-bottom:10px;"><b>📱 Оффлайн</b> — сайт работает даже без интернета, если вы добавите его на главный экран телефона.</p>
     </div>
     <div class="modal-actions">
@@ -231,7 +256,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
   <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
 </div>
 <script>
-// НАСТРОЙКИ GITHUB (Твой репозиторий)
+// НАСТРОЙКИ GITHUB
 const GITHUB_USER = "bagirovamaria3-ux";
 const REPO_NAME = "Autumn";
 const BRANCH = "main"; 
@@ -255,7 +280,7 @@ const storiesData = [
   { id: "story-new-2", title: "Хорошая Девочка", kicker: "Spice · История · Звезда Моя Далекая", themeClass: "bg-spice", text: "Всё это время, что я веду блог, я недоговаривала. Я была не совсем честна. С вами, и со своим мужем. И это давит на меня. Честность - одна из моих ценностей. Я хочу честно транслировать то, что происходит в моей жизни, поверьте, вы бы удивились и просмотры моих видео взлетели бы до небес. Там была бы вся правда о моей жизни, о большом страхе, и чувстве вины и стыда, о желании быть удобной, о диком чувстве одиночества, об обидах и не способности справляться с проблемами, об изменах, о переменах в сознании. Там было бы то, что возможно повергло бы вас в шок, а моего мужа заставило бы думать, что я последняя тварь на земле, что есть не так. Но я не могу, я боюсь, и это давит на меня бетонной стеной.\n\nС другой стороны я стараюсь вести блог, и подбираю темы, которые не всем заходят; и вижу, как мои видео пролетают мимо. А это значит, что людям не интересно, и тогда я задаюсь вопросом «зачем всё это» и хочется все бросить. Но бросить не могу, потому что мне нравится проявляться в соцсетях. Это уже привычка. Эта привычка, возможно ведущая в никуда. И это ещё одна бетонная стена, давящая с другой стороны. И вот я пишу об этом, чтобы хотя бы как-то облегчить этот груз и возможно заставить мозг поверить, что я так проявилась. Возможно я это когда-то опубликую, честно очень хочется делиться этим. А возможно и не опубликую. И это будут просто мемуары для себя.\n\nВ 2010-м году я познакомилась со своим будущим мужем. Я была очень глупенькая в плане отношений. У меня было очень мало опыта. А ещё у меня была очень контролирующая мать, которая изводила своими звонками и страхами за меня. Это все выливалось в скандалы. Я изо всех сил пыталась быть для неё хорошей девочкой. Всю жизнь. И даже когда стала взрослой. Одна моя часть пыталась. Другая моя часть пыталась пойти по контр сценарию. Травка, секс (Слава богу осознанный, только с теми, с кем действительно хотелось), легкие наркотики. Хорошей девочки конечно было больше. Она победила. Она закончила универ на отлично с красным дипломом. Потому что ей надо было доказать, что мать со своими страхами была неправа. Она пошла работать в школу. Но её было настолько много, что она вошла даже в мои отношения. Даже когда я встретила будущего мужа, хорошая девочка делала так, чтобы её взяли замуж. Просто потому что мама воспитала так, что нужно вырасти и обязательно выйти замуж! Это желание было настолько сильным, что даже тогда, когда после некоторого периода отношений с будущим мужем, я говорила себе и подругам, что мой идеал лопается как пузырь, я разочаровываюсь в человеке, эта хорошая девочка верила, что моей любви хватит на нас обоих и я смогу его изменить. Я делала всё, чтобы заслужить любовь. При первом звонке от него бежала домой, чтобы тупо разогреть ему суп в микроволновке, делала минет, не получая наслаждения в ответ; в наших ссорах признавала, что я преувеличиваю, и заставляла себя верить в то, что это моя реакция неправильная, что ничего такого серьезного не произошло. При всем при этом я чувствовала что мне некомфортно в этих отношениях, но я думала, что проблема во мне, и что так и должно быть. Я не знала, как можно по-другому… и даже на попытки моей сестры открыть мне глаза на его манипуляции и газлайтинг, я говорила, что они ничего не понимают, преувеличивают, и вообще нет никакой проблемы. Все скоро станет хорошо. Но хорошо не становилось. Шли месяцы, годы. Моя хорошая девочка верила, что вот вот и всё будет легко и я получу то, чего мне так не хватает: заботу, искреннюю любовь и ласку. Но то, что я получала было внешне похоже на вышеперечисленное, но внутри было всё то же ощущение, что вот как будто не достаточно. Внутри уже зарождался маленький страх сделать что-то не так, что я потом буду в чем-то виновата… на пустом месте.\n\n2012 год. Мы играем свадьбу. А сразу после неё я получаю «мнение» мужа, что мне пора бы оставить танцы, потому что непозволительно замужней женщине танцевать в ресторанах на глазах у кучи мужиков. Далее шли ограничения в плане одежды, что можно, а что нет одевать на работу в жаркий день. И идти на корпоратив по случаю дня рождения директора компании, помощником которого я являлась, а также организатором этого самого корпоратива, мне нельзя, это неправильно. Тут начались первые попытки изменить моё мышление мною же, я начала себя ломать, сама! Раз муж сказал неправильно, значит мне надо придумать что-то, чтобы не идти на корпоратив. Началось вранье, не знаю на сколько чистое. Под предлогом, что папа после операции я не поехала на корпоратив, но поехала домой на Палатку, к родителям. Они конечно были рады. Но у меня внутри был раздрай. Я не понимала, что я чувствую по поводу этой ситуации и этого моего поступка. Вроде правильно, а вроде не то, что хотела я. Дальше началось само убеждение по поводу «негоже замужней женщине танцевать в ресторанах» и мне стыдно было говорить об этом моему хореографу. И я придумала, что хорошей вполне легальной отмазкой будет забеременеть. И я забеременела. Конечно, Я радовалась беременности., но не осознанно. Я радовалась, потому что так надо. Так воспитывали. Мы же рождены чтобы создавать семью и рожать потомство. У нас получилась прекрасная девочка. За это я благодарна мужу! Когда родилась Милана, я думала, что вот наверно сейчас начнется та самая волшебная жизнь, о которой я мечтала, а именно я буду получать ту самую любовь, которую я желала. Я же родила ему дочку! Я заслуживаю отношения как к богине! Но этого опять не происходило… после выписки мы приехали домой с ребенком, а там даже постелька для него не была застелена. Там не готовились к моему возвращению. А в голове у меня было все как в идеальной картинке: шарики, торт, подарок, красивая спальня с кроваткой. Разочарование. Но я даже не выразила это. Не понимала, можно ли мне возмущаться по этому поводу…Или опять я себе надумываю. Я даже где-то в голове придумала мужу оправдание: он работал, зарабатывал деньги на нашу жизнь.\n\nВот и во время декрета он нашел себе ещё одну работу, но дома особо помощи не было. И я не возмущалась, я верила (или пыталась себя заставить верить), что так надо. Приятные моменты, конечно были, он купил мне кольцо с бриллиантом, абонемент в фитнес студию. Но бегала я туда в диком страхе и напряге: мне давали строго определенное время, и если я не укладывалась в него, это была проблема, потому что его дела были важнее, чем мой фитнес. Однажды мне даже в упрек прилетело: нефиг было жиреть… И наверное впервые в жизни я позволила себе постоять за себя: я врезала ему пощёчину за эти слова. Но это было единственный раз. И после этого случая, мне кажется, я испугалась сама себя, ведь меня так не воспитывали. От меня ожидали быть хорошей, и я только что «совершила ошибку». И по правилам теперь мне нужно было заглаживать вину и стараться быть хорошей ещё больше, чтобы вернуть доверие. Вот так я собственноручно начала план по уничтожению моей личности.\n\nИ здесь надо остановиться и сказать: хорошо, что это всё было. Нет, конечно, в идеале лучше бы этого вообще ничего не было, но сейчас глядя на это всё с момента ЗДЕСЬ и СЕЙЧАС, я могу сказать, что теперь я знаю, КАК мне НЕ НРАВИТСЯ, и что в своей жизни я терпеть не буду. У меня есть дочь, и я знаю, КАК я НЕ БУДУ её воспитывать. Жаль только, что для этого мне понадобилось целых полжизни…\n\nПродолжение следует…", image: null }
 ];
 
-// Инициализация и рендер
+// Инициализация
 document.addEventListener("DOMContentLoaded", function() {
   const savedTheme = localStorage.getItem('autumn_theme');
   if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
@@ -264,12 +289,26 @@ document.addEventListener("DOMContentLoaded", function() {
   initBackground();
   updateViewCounter();
   
-  // Загружаем галереи из папок на GitHub
+  // Загружаем галереи
   loadGallery('general', 'images/general', 'galleryGrid');
   loadGallery('arina', 'images/arina', 'galleryGridArina');
   loadGallery('sasha', 'images/sasha', 'galleryGridSasha');
   loadGallery('marina', 'images/marina', 'galleryGridMarina');
   loadGallery('polina', 'images/polina', 'galleryGridPolina');
+
+  // Анимация появления статей
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  setTimeout(() => {
+    document.querySelectorAll('.story-section').forEach(section => observer.observe(section));
+  }, 500);
 });
 
 // Счетчик просмотров
@@ -293,10 +332,15 @@ document.addEventListener('mousemove', (e) => {
   setTimeout(() => leaf.remove(), 1000);
 });
 
-// Кнопка Наверх
+// Кнопка Наверх и Индикатор чтения
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('backToTop');
-  btn.style.display = window.scrollY > 500 ? 'flex' : 'none';
+  if (window.scrollY > 500) { btn.classList.add('show'); } else { btn.classList.remove('show'); }
+
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById('reading-progress').style.width = scrolled + "%";
 });
 
 // Рендер статей
@@ -315,7 +359,6 @@ function renderStories(stories) {
     const section = document.createElement('section');
     section.className = `story-section ${themeClass}`; section.id = story.id;
     
-    // Преобразуем переносы строк в абзацы и обрабатываем цитаты
     let formattedText = story.text ? story.text.split(/\n\s*\n/).map(p => {
       if (p.trim().startsWith('>')) {
         return `<blockquote>${p.replace(/^>\s*/, '')}</blockquote>`;
@@ -327,15 +370,35 @@ function renderStories(stories) {
     if (story.themeClass === 'bg-spice' && !document.getElementById('spice-intro-box')) {
       introHtml = `<div id="spice-intro-box" class="spice-intro-box"><h3>Spice 18+</h3><p>Здесь собраны истории 18+, о тяжёлых жизненных обстоятельствах. О хихических и тяжёлых психических состояниях. Нежным котикам к прочтению не рекомендую, но сама я эти тексты люблю особенно сильно — за смелость автора, за нотку терпкого ромового яда в нашем осеннем эликсире и за Любовь во всех её смыслах.</p><p style="margin-top:10px;">Авторам — отдельное большое спасибо!</p></div>`;
     }
-    section.innerHTML = `<div class="container">${introHtml}<div class="story-kicker">${story.kicker}</div><div class="story-header"><h2 class="story-title">${story.title}</h2><div class="story-actions"><button onclick="copyText('${story.id}')" title="Скопировать">📋</button><button onclick="downloadText('${story.id}', '${story.title}')" title="Скачать">💾</button></div></div><div class="story-text" id="text-${story.id}">${formattedText}</div></div>`;
+    
+    section.innerHTML = `
+      <div class="container">
+        ${introHtml}
+        <div class="story-kicker">${story.kicker}</div>
+        <div class="story-header">
+          <h2 class="story-title">${story.title}</h2>
+          <div class="story-actions">
+            <button onclick="copyShareLink('${story.id}')" title="Поделиться">🔗</button>
+            <button onclick="copyText('${story.id}')" title="Скопировать текст">📋</button>
+            <button onclick="downloadText('${story.id}', '${story.title}')" title="Скачать">💾</button>
+          </div>
+        </div>
+        <div class="story-text" id="text-${story.id}">${formattedText}</div>
+      </div>`;
     storiesContainer.appendChild(section);
   });
+}
+
+function copyShareLink(id) {
+  const url = window.location.origin + window.location.pathname + '#' + id;
+  navigator.clipboard.writeText(url).then(() => alert('Ссылка на историю скопирована!')).catch(() => alert('Не удалось скопировать ссылку.'));
 }
 
 function copyText(id) {
   const el = document.getElementById('text-' + id);
   navigator.clipboard.writeText(el.innerText).then(() => alert('Текст скопирован!')).catch(() => alert('Не удалось скопировать.'));
 }
+
 function downloadText(id, title) {
   const text = document.getElementById('text-' + id).innerText;
   const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
@@ -356,7 +419,7 @@ function switchGalleryTab(tab) {
   });
 }
 
-// ЗАГРУЗКА ФОТО ИЗ GITHUB
+// ЗАГРУЗКА ФОТО
 async function loadGallery(target, folderPath, gridId) {
   const grid = document.getElementById(gridId);
   grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Загрузка...</p>';
@@ -367,7 +430,6 @@ async function loadGallery(target, folderPath, gridId) {
     if (!response.ok) throw new Error('Папка не найдена');
     const files = await response.json();
     
-    // Фильтруем только картинки
     const images = files.filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name));
     
     grid.innerHTML = '';
@@ -379,7 +441,7 @@ async function loadGallery(target, folderPath, gridId) {
       grid.appendChild(el);
     });
   } catch (e) {
-    grid.innerHTML = `<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Ошибка загрузки (проверьте, есть ли папка ${folderPath} на GitHub)</p>`;
+    grid.innerHTML = `<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Ошибка загрузки (проверьте папку ${folderPath})</p>`;
   }
 }
 
@@ -406,6 +468,15 @@ function startBgAnimation() {
 // Лайтбокс
 function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').style.display = 'flex'; }
 function closeLightbox() { document.getElementById('lightboxModal').style.display = 'none'; }
+
+// Секретный вход для автора
+let clickCount = 0;
+document.getElementById('secretLoginBtn').addEventListener('click', () => {
+  clickCount++;
+  setTimeout(() => { clickCount = 0; }, 1500);
+  if (clickCount >= 5) { clickCount = 0; document.getElementById('authorBar').classList.add('active'); alert('Добро пожаловать, Автор! Панель управления активирована.'); }
+});
+function logout() { document.getElementById('authorBar').classList.remove('active'); alert('Вы вышли из режима автора.'); }
 </script>
 </body>
 </html>
