@@ -171,7 +171,6 @@ input,select,textarea{ font-family: 'Lora', serif; }
   <div class="theme-title">AUTUMN</div>
   <div class="theme-question">Какую осень вы предпочитаете?</div>
   <div class="theme-buttons">
-    <!-- ЖЕЛЕЗОБЕТОННЫЙ ONCLICK -->
     <button class="theme-btn" onclick="document.body.setAttribute('data-theme','light'); localStorage.setItem('autumn_theme','light'); document.getElementById('themeSelector').style.display='none';">☀️ Светлая (Золотая)</button>
     <button class="theme-btn" onclick="document.body.setAttribute('data-theme','dark'); localStorage.setItem('autumn_theme','dark'); document.getElementById('themeSelector').style.display='none';">🌙 Тёмная (Глубокая)</button>
   </div>
@@ -228,7 +227,8 @@ input,select,textarea{ font-family: 'Lora', serif; }
     <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
   </p>
 </footer>
-<section class="gallery-section" id="gallerySection">
+
+  <section class="gallery-section" id="gallerySection">
   <div class="container">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:15px;">
       <h2 class="toc-title" style="margin-bottom:0; text-align:left;">Галерея</h2>
@@ -311,6 +311,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 <div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
   <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
 </div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -340,7 +341,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
   };
 </script>
 
-<script>
+  <script>
 const GITHUB_USER = "bagirovamaria3-ux";
 const REPO_NAME = "Autumn";
 const BRANCH = "main"; 
@@ -371,7 +372,49 @@ const storiesData = [
   ]}
 ];
 
-// ФУНКЦИИ
+// Инициализация и рендер
+document.addEventListener("DOMContentLoaded", function() {
+  const savedTheme = localStorage.getItem('autumn_theme');
+  if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
+
+  const savedFontSize = localStorage.getItem('autumn_fontsize');
+  if (savedFontSize) { document.body.style.fontSize = savedFontSize + 'px'; document.getElementById('fontSizeSlider').value = savedFontSize; }
+
+  // Firebase auth check (вызывается, если модуль загрузился)
+  setTimeout(() => {
+    if (window.checkAuthStatus) {
+      window.checkAuthStatus((loggedIn) => {
+        if (loggedIn) { document.getElementById('authorBar').classList.add('active'); }
+      });
+    }
+  }, 1000);
+
+  renderStories(storiesData);
+  initBackground();
+  updateViewCounter();
+  
+  loadGallery('general', 'images/general', 'galleryGrid');
+  loadGallery('arina', 'images/arina', 'galleryGridArina');
+  loadGallery('sasha', 'images/sasha', 'galleryGridSasha');
+  loadGallery('marina', 'images/marina', 'galleryGridMarina');
+  loadGallery('polina', 'images/polina', 'galleryGridPolina');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+        if (entry.target.id === 'story-marina') { animateBee(); }
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  setTimeout(() => {
+    document.querySelectorAll('.story-section').forEach(section => observer.observe(section));
+  }, 500);
+});
+
+// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 function selectTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('autumn_theme', theme); document.getElementById('themeSelector').style.display = 'none'; }
 function toggleTheme() { const current = document.body.getAttribute('data-theme') || 'light'; const next = current === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('autumn_theme', next); }
 function toggleBackground() { let mode = localStorage.getItem('autumn_bg') || 'leaves'; if (mode === 'leaves') mode = 'spiders'; else if (mode === 'spiders') mode = 'empty'; else mode = 'leaves'; localStorage.setItem('autumn_bg', mode); updateBgBtn(); startBgAnimation(); }
@@ -425,20 +468,6 @@ let clickCount = 0;
 document.getElementById('secretLoginBtn').addEventListener('click', () => { if (document.getElementById('authorBar').classList.contains('active')) return; clickCount++; setTimeout(() => { clickCount = 0; }, 1500); if (clickCount >= 5) { clickCount = 0; document.getElementById('loginModal').classList.add('open'); } });
 async function submitLogin() { const email = document.getElementById('loginUser').value; const pass = document.getElementById('loginPass').value; if (!window.loginUser) { alert('Подключение к базе не готово. Подождите.'); return; } const success = await window.loginUser(email, pass); if (success) { document.getElementById('loginModal').classList.remove('open'); document.getElementById('authorBar').classList.add('active'); alert('Вы успешно вошли как автор!'); document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = ''; } else { alert('Неверный email или пароль'); } }
 async function logout() { if (window.logoutUser) { await window.logoutUser(); } document.getElementById('authorBar').classList.remove('active'); alert('Вы вышли из режима автора.'); }
-
-document.addEventListener("DOMContentLoaded", function() {
-  const savedTheme = localStorage.getItem('autumn_theme');
-  if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
-  const savedFontSize = localStorage.getItem('autumn_fontsize');
-  if (savedFontSize) { document.body.style.fontSize = savedFontSize + 'px'; document.getElementById('fontSizeSlider').value = savedFontSize; }
-  if (window.checkAuthStatus) { window.checkAuthStatus((loggedIn) => { if (loggedIn) { document.getElementById('authorBar').classList.add('active'); } }); }
-  renderStories(storiesData); updateBgBtn(); startBgAnimation(); updateViewCounter();
-  loadGallery('general', 'images/general', 'galleryGrid'); loadGallery('arina', 'images/arina', 'galleryGridArina'); loadGallery('sasha', 'images/sasha', 'galleryGridSasha'); loadGallery('marina', 'images/marina', 'galleryGridMarina'); loadGallery('polina', 'images/polina', 'galleryGridPolina');
-  const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); if (entry.target.id === 'story-marina') { animateBee(); } } }); }, { threshold: 0.1 });
-  setTimeout(() => { document.querySelectorAll('.story-section').forEach(section => observer.observe(section)); }, 500);
-  document.addEventListener('mousemove', (e) => { if (Math.random() > 0.15) return; const leaf = document.createElement('div'); leaf.className = 'leaf-cursor'; leaf.innerText = '🍂'; leaf.style.left = e.clientX + 'px'; leaf.style.top = e.clientY + 'px'; document.body.appendChild(leaf); setTimeout(() => leaf.remove(), 1000); });
-  window.addEventListener('scroll', () => { const btn = document.getElementById('backToTop'); if (window.scrollY > 500) { btn.classList.add('show'); } else { btn.classList.remove('show'); } const winScroll = document.body.scrollTop || document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('reading-progress').style.width = scrolled + "%"; });
-});
 </script>
 </body>
 </html>
