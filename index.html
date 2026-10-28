@@ -155,7 +155,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
   .story-header { flex-direction: column; align-items: flex-start; gap: 5px; }
   .author-bar { top: auto; bottom: 80px; right: 20px; left: 20px; }
   #backToTop { bottom: 80px; }
-  .font-control { display: none; } /* Скрываем на мобилках, чтобы не теснить меню */
+  .font-control { display: none; }
 }
 @media print {
   .top-nav, .author-bar, #backToTop, .bg-animation-container, .theme-selector-overlay, .modal, .font-control { display: none !important; }
@@ -177,7 +177,6 @@ input,select,textarea{ font-family: 'Lora', serif; }
     <button class="theme-btn" onclick="selectTheme('dark')">🌙 Тёмная (Глубокая)</button>
   </div>
   
-  <!-- ДИСКЛЕЙМЕР -->
   <div style="margin-top: 30px; font-size: 11px; font-family: 'Montserrat', sans-serif; opacity: 0.5; max-width: 500px; line-height: 1.5;">
     <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
   </div>
@@ -224,12 +223,14 @@ input,select,textarea{ font-family: 'Lora', serif; }
   </section>
   <div id="storiesContainer"></div>
 </main>
-  <footer style="padding: 40px 20px; text-align: center; font-size: 12px; font-family: 'Montserrat', sans-serif; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--bg-main);">
+<!-- ПОДВАЛ С ДИСКЛЕЙМЕРОМ -->
+<footer style="padding: 40px 20px; text-align: center; font-size: 12px; font-family: 'Montserrat', sans-serif; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--bg-main);">
   <p style="margin-bottom: 10px;">© 2026 AUTUMN. Все права защищены.</p>
   <p style="max-width: 600px; margin: 0 auto; line-height: 1.5; opacity: 0.7;">
     <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
   </p>
 </footer>
+
 <section class="gallery-section" id="gallerySection">
   <div class="container">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:15px;">
@@ -374,7 +375,6 @@ const storiesData = [
   ]}
 ];
 
-// Инициализация и рендер
 document.addEventListener("DOMContentLoaded", function() {
   const savedTheme = localStorage.getItem('autumn_theme');
   if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
@@ -382,7 +382,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const savedFontSize = localStorage.getItem('autumn_fontsize');
   if (savedFontSize) { document.body.style.fontSize = savedFontSize + 'px'; document.getElementById('fontSizeSlider').value = savedFontSize; }
 
-  // Проверка авторизации Firebase
   if (window.checkAuthStatus) {
     window.checkAuthStatus((loggedIn) => {
       if (loggedIn) {
@@ -401,14 +400,12 @@ document.addEventListener("DOMContentLoaded", function() {
   loadGallery('marina', 'images/marina', 'galleryGridMarina');
   loadGallery('polina', 'images/polina', 'galleryGridPolina');
 
-  // Анимация появления статей и пчелы
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
         
-        // Запуск пчелы для истории Марины
         if (entry.target.id === 'story-marina') {
           animateBee();
         }
@@ -421,7 +418,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 500);
 });
 
-// Анимация пчелы
 function animateBee() {
   const bee = document.getElementById('flyingBee');
   bee.style.opacity = '1';
@@ -429,7 +425,6 @@ function animateBee() {
   bee.style.top = '50%';
   
   let angle = 0;
-  let radius = 150;
   let t = 0;
   
   const interval = setInterval(() => {
@@ -451,7 +446,6 @@ function animateBee() {
   }, 50);
 }
 
-// Счетчик
 async function updateViewCounter() {
   try {
     const res = await fetch('https://api.countapi.xyz/hit/autumn-magazine/view');
@@ -460,7 +454,6 @@ async function updateViewCounter() {
   } catch(e) { document.getElementById('viewCount').innerText = "уже много"; }
 }
 
-// Курсор
 document.addEventListener('mousemove', (e) => {
   if (Math.random() > 0.15) return;
   const leaf = document.createElement('div');
@@ -472,7 +465,6 @@ document.addEventListener('mousemove', (e) => {
   setTimeout(() => leaf.remove(), 1000);
 });
 
-// Скролл
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('backToTop');
   if (window.scrollY > 500) { btn.classList.add('show'); } else { btn.classList.remove('show'); }
@@ -483,13 +475,11 @@ window.addEventListener('scroll', () => {
   document.getElementById('reading-progress').style.width = scrolled + "%";
 });
 
-// Изменение шрифта
 function changeFontSize(val) {
   document.body.style.fontSize = val + 'px';
   localStorage.setItem('autumn_fontsize', val);
 }
 
-// Рендер статей
 function renderStories(groups) {
   const tocList = document.getElementById('tocList');
   const storiesContainer = document.getElementById('storiesContainer');
@@ -564,7 +554,6 @@ function downloadText(id, title) {
   a.href = URL.createObjectURL(blob); a.download = title + '.txt'; a.click(); URL.revokeObjectURL(a.href);
 }
 
-// ГАЛЕРЕЯ
 function showGallery() { document.getElementById('mainContent').style.display = 'none'; document.getElementById('gallerySection').classList.add('active'); switchGalleryTab('general'); window.scrollTo(0,0); }
 function showMain() { document.getElementById('mainContent').style.display = 'block'; document.getElementById('gallerySection').classList.remove('active'); window.scrollTo(0,0); }
 
@@ -577,7 +566,6 @@ function switchGalleryTab(tab) {
   });
 }
 
-// ЗАГРУЗКА ФОТО
 async function loadGallery(target, folderPath, gridId) {
   const grid = document.getElementById(gridId);
   grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Загрузка...</p>';
@@ -603,7 +591,6 @@ async function loadGallery(target, folderPath, gridId) {
   }
 }
 
-// Темы и фоны
 function selectTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('autumn_theme', theme); document.getElementById('themeSelector').style.display = 'none'; }
 function toggleTheme() { const current = document.body.getAttribute('data-theme') || 'light'; const next = current === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('autumn_theme', next); }
 
@@ -623,11 +610,9 @@ function startBgAnimation() {
   }
 }
 
-// Лайтбокс
 function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').style.display = 'flex'; }
 function closeLightbox() { document.getElementById('lightboxModal').style.display = 'none'; }
 
-// Секретный вход и авторизация
 let clickCount = 0;
 document.getElementById('secretLoginBtn').addEventListener('click', () => {
   if (document.getElementById('authorBar').classList.contains('active')) return;
@@ -661,13 +646,6 @@ async function logout() {
   document.getElementById('authorBar').classList.remove('active');
   alert('Вы вышли из режима автора.');
 }
-  <script>
-function selectTheme(theme) { 
-  document.body.setAttribute('data-theme', theme); 
-  localStorage.setItem('autumn_theme', theme); 
-  document.getElementById('themeSelector').style.display = 'none'; 
-}
-</script>
 </script>
 </body>
 </html>
