@@ -176,9 +176,11 @@ input,select,textarea{ font-family: 'Lora', serif; }
     <button class="theme-btn" onclick="selectTheme('light')">☀️ Светлая (Золотая)</button>
     <button class="theme-btn" onclick="selectTheme('dark')">🌙 Тёмная (Глубокая)</button>
   </div>
+  
+  <!-- ДИСКЛЕЙМЕР -->
   <div style="margin-top: 30px; font-size: 11px; font-family: 'Montserrat', sans-serif; opacity: 0.5; max-width: 500px; line-height: 1.5;">
-  <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
-</div>
+    <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
+  </div>
 </div>
 
 <div class="bg-animation-container" id="bgAnimation"></div>
@@ -659,6 +661,13 @@ async function logout() {
   document.getElementById('authorBar').classList.remove('active');
   alert('Вы вышли из режима автора.');
 }
+  <script>
+function selectTheme(theme) { 
+  document.body.setAttribute('data-theme', theme); 
+  localStorage.setItem('autumn_theme', theme); 
+  document.getElementById('themeSelector').style.display = 'none'; 
+}
+</script>
 </script>
 </body>
 </html>
