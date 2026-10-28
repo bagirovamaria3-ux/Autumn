@@ -14,10 +14,7 @@ h1,h2,h3,h4{ font-weight: 600; line-height: 1.2; }
 button{ cursor: pointer; font-family: 'Montserrat', sans-serif; }
 input,select,textarea{ font-family: 'Lora', serif; }
 
-/* ИНДИКАТОР ЧТЕНИЯ */
 #reading-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 1000; width: 0%; transition: width 0.1s; }
-
-/* ЭКРАН ВЫБОРА ТЕМЫ */
 .theme-selector-overlay { position: fixed; inset: 0; z-index: 1000; background: #1c1b19; color: #e8dcc8; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 .theme-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(40px, 8vw, 80px); margin-bottom: 20px; color: #c8a96a; }
 .theme-question { font-family: 'Montserrat', sans-serif; font-size: 16px; margin-bottom: 40px; opacity: 0.8; }
@@ -25,29 +22,22 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .theme-btn { background: transparent; border: 1px solid #e8dcc8; color: #e8dcc8; padding: 15px 40px; border-radius: 50px; font-size: 16px; transition: all 0.3s ease; }
 .theme-btn:hover { background: #e8dcc8; color: #1c1b19; }
 
-/* ВЕРХНЯЯ ПАНЕЛЬ */
 .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: var(--bg-main); border-bottom: 1px solid var(--border); transition: background-color 0.4s; }
 .brand { font-family: 'Cinzel Decorative', serif; font-size: 24px; color: var(--text-main); cursor: pointer; user-select: none; }
 .nav-links { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
 .nav-btn { background: none; border: 1px solid var(--border); border-radius: 50px; padding: 8px 16px; color: var(--text-main); font-family: 'Montserrat', sans-serif; font-size: 13px; text-transform: uppercase; transition: 0.2s; }
 .nav-btn:hover { background: var(--border); }
 .theme-toggle { background: var(--border); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; color: var(--text-main); }
-
-/* БЕГУНОК ШРИФТА */
 .font-control { display: flex; align-items: center; gap: 5px; background: var(--border); padding: 5px 10px; border-radius: 20px; }
 .font-control input[type="range"] { width: 60px; cursor: pointer; accent-color: var(--accent); }
-
-/* ПАНЕЛЬ АВТОРА */
 .author-bar { position: fixed; top: 70px; right: 20px; z-index: 200; display: none; flex-direction: column; gap: 10px; background: var(--border); padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-family: 'Montserrat', sans-serif; }
 .author-bar.active { display: flex; }
 .author-bar button { padding: 8px 12px; border: none; border-radius: 6px; background: #1d1d1b; color: #fff; font-size: 12px; }
 
-/* ОБЛОЖКА */
 .cover-section { min-height: 100vh; background-color: var(--c-cover-bg); color: var(--c-cover-text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
 .cover-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(60px, 15vw, 120px); color: #c8a96a; line-height: 1; }
 .cover-subtitle { font-family: 'Montserrat', sans-serif; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; margin-top: 20px; }
 
-/* СОДЕРЖАНИЕ */
 .toc-section { padding: 60px 20px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
 .toc-container { max-width: 800px; margin: 0 auto; }
 .toc-title { font-family: 'Cinzel Decorative', serif; font-size: 32px; margin-bottom: 20px; color: var(--text-main); text-align: center; }
@@ -59,7 +49,6 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .toc-item-title { font-size: 18px; font-weight: 600; display: block; margin-bottom: 4px; }
 .toc-item-author { font-size: 12px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; color: var(--text-muted); display: block; }
 
-/* СТАТЬИ */
 .story-section { padding: 80px 20px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .story-section.visible { opacity: 1; transform: translateY(0); }
 .container { max-width: 800px; margin: 0 auto; }
@@ -71,16 +60,13 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .story-text > p:first-of-type::first-letter { font-family: 'Cinzel Decorative', serif; float: left; font-size: 4em; line-height: 0.8; margin-right: 12px; margin-top: 5px; }
 .story-text blockquote { border-left: 4px solid currentColor; padding-left: 15px; margin: 20px 0; font-style: italic; opacity: 0.85; font-size: 0.95em; }
 
-/* СПЕЦИАЛЬНЫЕ БЛОКИ */
 .recipe-block { background: rgba(0,0,0,0.03); border-left: 4px solid #4a697a; padding: 25px; border-radius: 8px; margin: 30px 0; }
 .recipe-block h3 { font-family: 'Cinzel Decorative', serif; color: #4a697a; margin-bottom: 15px; font-size: 24px; }
 .recipe-block ul, .recipe-block ol { padding-left: 20px; margin-bottom: 20px; }
-
 .editor-note { background: rgba(0,0,0,0.05); border-left: 4px solid #d94e34; padding: 20px; border-radius: 8px; margin-bottom: 30px; font-style: italic; }
 .spice-recommendation { background: #1a1817; color: #e8dcc8; padding: 30px; border-radius: 12px; margin-top: 40px; text-align: center; font-family: 'Lora', serif; font-size: 18px; line-height: 1.8; }
 .spice-recommendation blockquote { border-left: none; font-style: italic; color: #d94e34; font-size: 20px; margin: 20px 0; }
 
-/* ЦВЕТА РАЗДЕЛОВ */
 .bg-myrte { background: #eef5ee; color: #1b3324; }
 .bg-myrte .story-title { color: #2e5e3e; }
 .bg-dinner { background: #fdf2ea; color: #4a2316; }
@@ -89,22 +75,17 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .bg-north .story-title { color: #4a697a; }
 .bg-body { background: #f8f3e6; color: #3b2e1a; }
 .bg-body .story-title { color: #a37a40; }
-
-/* SPICE ФОНЫ */
 .bg-spice-light { background: #fcf9f2; color: #2c2a27; position: relative; overflow: hidden; }
 .bg-spice-light::before { content: '🌿'; position: absolute; font-size: 300px; opacity: 0.05; top: -50px; right: -50px; transform: rotate(30deg); pointer-events: none; }
 .bg-spice-light .story-title { color: #d94e34; }
-
 .bg-spice-dark { background: #121212; color: #e0dcd5; }
 .bg-spice-dark .story-title { color: #d94e34; }
 .bg-spice-dark .editor-note { background: rgba(217, 78, 52, 0.1); border-left-color: #d94e34; }
 
-/* ПЛАШКА 18+ */
 .spice-intro-box { margin-bottom: 40px; padding: 25px; border: 1px dashed #d94e34; border-radius: 12px; background: rgba(217, 78, 52, 0.1); }
 .spice-intro-box h3 { font-family: 'Cinzel Decorative', serif; color: #d94e34; margin-bottom: 10px; font-size: 24px; }
 .spice-intro-box p { font-size: 17px; line-height: 1.7; }
 
-/* ГАЛЕРЕЯ */
 .gallery-section { display: none; padding: 100px 20px; background: var(--bg-main); min-height: 100vh; }
 .gallery-section.active { display: block; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
@@ -114,14 +95,9 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .gallery-item img:hover { opacity: 0.8; }
 .gallery-info { padding: 15px; }
 
-/* ПЧЁЛКА */
 .flying-bee { position: fixed; font-size: 40px; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity 0.5s; }
-
-/* КУРСОР-ЛИСТОЧЕК */
 .leaf-cursor { position: fixed; pointer-events: none; z-index: 9999; font-size: 20px; animation: leafFall 1s ease-out forwards; }
 @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(50px) rotate(45deg); opacity: 0; } }
-
-/* АНИМАЦИЯ ФОНА */
 .bg-animation-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
 .falling-item { position: absolute; top: -50px; pointer-events: none; opacity: 0.6; }
 @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
@@ -129,11 +105,9 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .spider { color: #333; font-size: 20px; animation: fall linear infinite; }
 [data-theme="dark"] .spider { color: #aaa; }
 
-/* КНОПКА НАВЕРХ */
 #backToTop { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 20px; display: flex; opacity: 0; pointer-events: none; z-index: 90; box-shadow: 0 4px 10px rgba(0,0,0,0.3); align-items: center; justify-content: center; transition: all 0.3s; transform: translateY(20px); }
 #backToTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
-/* МОДАЛКИ И ЛАЙТБОКС */
 .modal { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal.open { display: flex; }
 .modal-card { background: #fffdf9; color: #1d1d1b; width: min(600px, 100%); max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 30px; }
@@ -175,7 +149,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
     <button class="theme-btn" onclick="document.body.setAttribute('data-theme','dark'); localStorage.setItem('autumn_theme','dark'); document.getElementById('themeSelector').style.display='none';">🌙 Тёмная (Глубокая)</button>
   </div>
   <div style="margin-top: 30px; font-size: 11px; font-family: 'Montserrat', sans-serif; opacity: 0.5; max-width: 500px; line-height: 1.5;">
-    <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
+    <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет.
   </div>
 </div>
 
@@ -224,11 +198,10 @@ input,select,textarea{ font-family: 'Lora', serif; }
 <footer style="padding: 40px 20px; text-align: center; font-size: 12px; font-family: 'Montserrat', sans-serif; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--bg-main);">
   <p style="margin-bottom: 10px;">© 2026 AUTUMN. Все права защищены.</p>
   <p style="max-width: 600px; margin: 0 auto; line-height: 1.5; opacity: 0.7;">
-    <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет. Мнения авторов могут не совпадать с мнением редакции.
+    <b>Дисклеймер:</b> Материалы журнала содержат ненормативную лексику и предназначены для лиц старше 18 лет.
   </p>
 </footer>
-
-  <section class="gallery-section" id="gallerySection">
+<section class="gallery-section" id="gallerySection">
   <div class="container">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:15px;">
       <h2 class="toc-title" style="margin-bottom:0; text-align:left;">Галерея</h2>
@@ -311,37 +284,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 <div id="lightboxModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.9); align-items:center; justify-content:center; padding:20px; cursor:zoom-out;" onclick="closeLightbox()">
   <img id="lightboxImg" src="" style="max-width:100%; max-height:100%; border-radius:8px;">
 </div>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCMs9xM3Fw9BGaHaexA2RZWtUykTZUmo8Y",
-    authDomain: "autumn-6f900.firebaseapp.com",
-    projectId: "autumn-6f900",
-    storageBucket: "autumn-6f900.firebasestorage.app",
-    messagingSenderId: "981004008233",
-    appId: "1:981004008233:web:6e2dc658ed3d0389a45538",
-    measurementId: "G-H7P6262R0R"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  window.loginUser = async function(email, pass) { 
-    try { await signInWithEmailAndPassword(auth, email, pass); return true; } 
-    catch (e) { return false; } 
-  };
-  window.logoutUser = async function() { 
-    try { await signOut(auth); } catch(e) {} 
-  };
-  window.checkAuthStatus = function(callback) { 
-    onAuthStateChanged(auth, user => callback(!!user)); 
-  };
-</script>
-
-  <script>
+<script>
 const GITHUB_USER = "bagirovamaria3-ux";
 const REPO_NAME = "Autumn";
 const BRANCH = "main"; 
@@ -372,22 +315,12 @@ const storiesData = [
   ]}
 ];
 
-// Инициализация и рендер
 document.addEventListener("DOMContentLoaded", function() {
   const savedTheme = localStorage.getItem('autumn_theme');
   if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
 
   const savedFontSize = localStorage.getItem('autumn_fontsize');
   if (savedFontSize) { document.body.style.fontSize = savedFontSize + 'px'; document.getElementById('fontSizeSlider').value = savedFontSize; }
-
-  // Firebase auth check (вызывается, если модуль загрузился)
-  setTimeout(() => {
-    if (window.checkAuthStatus) {
-      window.checkAuthStatus((loggedIn) => {
-        if (loggedIn) { document.getElementById('authorBar').classList.add('active'); }
-      });
-    }
-  }, 1000);
 
   renderStories(storiesData);
   initBackground();
@@ -414,7 +347,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }, 500);
 });
 
-// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 function selectTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('autumn_theme', theme); document.getElementById('themeSelector').style.display = 'none'; }
 function toggleTheme() { const current = document.body.getAttribute('data-theme') || 'light'; const next = current === 'light' ? 'dark' : 'light'; document.body.setAttribute('data-theme', next); localStorage.setItem('autumn_theme', next); }
 function toggleBackground() { let mode = localStorage.getItem('autumn_bg') || 'leaves'; if (mode === 'leaves') mode = 'spiders'; else if (mode === 'spiders') mode = 'empty'; else mode = 'leaves'; localStorage.setItem('autumn_bg', mode); updateBgBtn(); startBgAnimation(); }
