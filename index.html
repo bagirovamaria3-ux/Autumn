@@ -525,9 +525,16 @@ function switchGalleryTab(tab) {
   });
 }
 
-// ЗАГРУЗКА ФОТО
+// ЗАГРУЗКА ФОТО (ОБНОВЛЕНА)
 async function loadGallery(target, folderPath, gridId) {
   const grid = document.getElementById(gridId);
+  
+  // Если это вкладка "Общие", сразу показываем ваш текст и не делаем запрос к GitHub
+  if (target === 'general') {
+    grid.innerHTML = '<p style="opacity:0.6; text-align:center; grid-column: 1/-1; padding: 40px 20px; font-family: \'Lora\', serif; font-size: 20px;">Тут пусто, тыкайте другие кнопочки ✨</p>';
+    return;
+  }
+
   grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Загрузка...</p>';
   
   try {
@@ -539,7 +546,12 @@ async function loadGallery(target, folderPath, gridId) {
     const images = files.filter(f => f.type === 'file' && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name));
     
     grid.innerHTML = '';
-    if (images.length === 0) { grid.innerHTML = '<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Пока пусто.</p>'; return; }
+    
+    // Если папка есть, но она пустая
+    if (images.length === 0) { 
+        grid.innerHTML = '<p style="opacity:0.6; text-align:center; grid-column: 1/-1; padding: 40px 20px; font-family: \'Lora\', serif; font-size: 20px;">Тут пусто, тыкайте другие кнопочки ✨</p>'; 
+        return; 
+    }
 
     images.forEach(img => {
       const el = document.createElement('div'); el.className = 'gallery-item';
@@ -547,7 +559,8 @@ async function loadGallery(target, folderPath, gridId) {
       grid.appendChild(el);
     });
   } catch (e) {
-    grid.innerHTML = `<p style="opacity:0.5; text-align:center; grid-column: 1/-1;">Ошибка загрузки (проверьте папку ${folderPath})</p>`;
+    // Если папки нет вообще или произошла ошибка сети
+    grid.innerHTML = `<p style="opacity:0.6; text-align:center; grid-column: 1/-1; padding: 40px 20px; font-family: 'Lora', serif; font-size: 20px;">Тут пусто, тыкайте другие кнопочки ✨</p>`;
   }
 }
 
