@@ -34,9 +34,13 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .nav-btn:hover { background: var(--border); }
 .theme-toggle { background: var(--border); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 18px; color: var(--text-main); }
 
-/* БЕГУНОК ШРИФТА */
+/* БЕГУНОК ШРИФТА (ПК) */
 .font-control { display: flex; align-items: center; gap: 5px; background: var(--border); padding: 5px 10px; border-radius: 20px; }
 .font-control input[type="range"] { width: 60px; cursor: pointer; accent-color: var(--accent); }
+
+/* КНОПКИ ШРИФТА (МОБИЛЬНЫЕ) */
+.mobile-font-controls { display: none; gap: 5px; align-items: center; }
+.mobile-font-btn { background: var(--border); border: none; border-radius: 50%; width: 32px; height: 32px; color: var(--text-main); font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
 
 /* ПАНЕЛЬ АВТОРА */
 .author-bar { position: fixed; top: 70px; right: 20px; z-index: 200; display: none; flex-direction: column; gap: 10px; background: var(--border); padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); font-family: 'Montserrat', sans-serif; }
@@ -163,6 +167,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
 .disclaimer-footer p { margin-bottom: 10px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 .disclaimer-footer b { color: var(--text-main); }
 
+/* МОБИЛЬНАЯ АДАПТАЦИЯ */
 @media (max-width: 768px) {
   .nav-btn { padding: 6px 10px; font-size: 10px; }
   .cover-title { font-size: 15vw; }
@@ -172,10 +177,14 @@ input,select,textarea{ font-family: 'Lora', serif; }
   .story-header { flex-direction: column; align-items: flex-start; gap: 5px; }
   .author-bar { top: auto; bottom: 80px; right: 20px; left: 20px; }
   #backToTop { bottom: 80px; }
+  
+  /* Скрываем старый бегунок и показываем кнопки */
   .font-control { display: none; }
+  .mobile-font-controls { display: flex; }
 }
+
 @media print {
-  .top-nav, .author-bar, #backToTop, .bg-animation-container, .theme-selector-overlay, .modal, .font-control { display: none !important; }
+  .top-nav, .author-bar, #backToTop, .bg-animation-container, .theme-selector-overlay, .modal, .font-control, .mobile-font-controls { display: none !important; }
   body { background: #fff !important; color: #000 !important; }
   .story-section { page-break-inside: avoid; border: none; opacity: 1 !important; transform: none !important; background: #fff !important; color: #000 !important; }
 }
@@ -200,11 +209,20 @@ input,select,textarea{ font-family: 'Lora', serif; }
   <div class="brand" id="secretLoginBtn">AUTUMN</div>
   <div class="nav-links">
     <button class="nav-btn" id="bgBtn" onclick="toggleBackground()">Фон: 🍂</button>
+    
+    <!-- Бегунок для ПК -->
     <div class="font-control">
       <span style="font-size:12px;">А</span>
       <input type="range" id="fontSizeSlider" min="14" max="24" value="19" oninput="changeFontSize(this.value)">
       <span style="font-size:16px;">А</span>
     </div>
+    
+    <!-- Кнопки для мобильных -->
+    <div class="mobile-font-controls">
+      <button class="mobile-font-btn" onclick="adjustFontSize(-1)">А-</button>
+      <button class="mobile-font-btn" onclick="adjustFontSize(1)">А+</button>
+    </div>
+
     <button class="nav-btn" onclick="showGallery()">Галерея 🖼️</button>
     <button class="nav-btn" onclick="document.getElementById('helpModal').classList.add('open')">❓</button>
     <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
@@ -292,7 +310,7 @@ input,select,textarea{ font-family: 'Lora', serif; }
     <h3 style="font-family:'Lora'; margin-bottom:15px;">Как пользоваться журналом</h3>
     <div style="font-size:15px; line-height:1.6; margin-bottom:15px;">
       <p style="margin-bottom:10px;"><b>🌓 Смена темы</b> — нажмите на иконку смены темы в правом верхнем углу, чтобы переключить день/ночь.</p>
-      <p style="margin-bottom:10px;"><b>🔠 Размер шрифта</b> — используйте бегунок в верхней панели, чтобы выбрать удобный размер текста.</p>
+      <p style="margin-bottom:10px;"><b>🔠 Размер шрифта</b> — на ПК используйте бегунок в верхней панели. На телефоне — кнопки <b>А-</b> и <b>А+</b>.</p>
       <p style="margin-bottom:10px;"><b>🍂 Фон</b> — кнопка «Фон» переключает листья, паучков и чистый фон.</p>
       <p style="margin-bottom:10px;"><b>🖼️ Галерея</b> — здесь вы можете посмотреть фотографии и работы авторов.</p>
       <p style="margin-bottom:10px;"><b>📖 Тексты</b> — просто листайте вниз, чтобы читать статьи. Содержание находится в самом начале.</p>
@@ -382,7 +400,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if (savedTheme) { document.body.setAttribute('data-theme', savedTheme); document.getElementById('themeSelector').style.display = 'none'; }
 
   const savedFontSize = localStorage.getItem('autumn_fontsize');
-  if (savedFontSize) { document.body.style.fontSize = savedFontSize + 'px'; document.getElementById('fontSizeSlider').value = savedFontSize; }
+  if (savedFontSize) { 
+    document.body.style.fontSize = savedFontSize + 'px'; 
+    document.getElementById('fontSizeSlider').value = savedFontSize; 
+  }
 
   // Проверка авторизации Firebase
   if (window.checkAuthStatus) {
@@ -436,10 +457,25 @@ window.addEventListener('scroll', () => {
   document.getElementById('reading-progress').style.width = scrolled + "%";
 });
 
-// Изменение шрифта
+// Изменение шрифта (ПК)
 function changeFontSize(val) {
   document.body.style.fontSize = val + 'px';
   localStorage.setItem('autumn_fontsize', val);
+}
+
+// Изменение шрифта (Телефон)
+function adjustFontSize(delta) {
+  const slider = document.getElementById('fontSizeSlider');
+  let currentSize = parseInt(slider.value) || 19;
+  let newSize = currentSize + (delta * 1);
+  
+  // Ограничиваем от 14 до 24 пикселей
+  if (newSize < 14) newSize = 14;
+  if (newSize > 24) newSize = 24;
+  
+  slider.value = newSize;
+  document.body.style.fontSize = newSize + 'px';
+  localStorage.setItem('autumn_fontsize', newSize);
 }
 
 // Рендер статей
@@ -538,7 +574,7 @@ function switchGalleryTab(tab) {
   });
 }
 
-// ЗАГРУЗКА ФОТО (ОБНОВЛЕНА)
+// ЗАГРУЗКА ФОТО
 async function loadGallery(target, folderPath, gridId) {
   const grid = document.getElementById(gridId);
   
